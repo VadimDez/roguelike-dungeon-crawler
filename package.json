@@ -1,0 +1,19 @@
+{
+  "name": "roguelike-dungeon-crawler",
+  "version": "1.0.0",
+  "description": "react game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VadimDez/roguelike-dungeon-crawler.git"
+  },
+  "author": "Vadym Yatsyuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VadimDez/roguelike-dungeon-crawler/issues"
+  },
+  "homepage": "https://github.com/VadimDez/roguelike-dungeon-crawler#readme"
+}
