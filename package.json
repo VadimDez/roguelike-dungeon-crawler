@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/VadimDez/roguelike-dungeon-crawler/issues"
   },
-  "homepage": "https://github.com/VadimDez/roguelike-dungeon-crawler#readme"
+  "homepage": "https://github.com/VadimDez/roguelike-dungeon-crawler#readme",
+  "dependencies": {
+    "react": "^0.14.7"
+  }
 }
