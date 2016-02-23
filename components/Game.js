@@ -4,13 +4,14 @@
 
 import React from 'react';
 import StatusBar from './StatusBar'
+import Map from './Map'
 
 class Game extends React.Component {
   render() {
     return (
       <div>
         <StatusBar />
-        Game
+        <Map />
       </div>
     )
   }
