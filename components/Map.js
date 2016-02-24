@@ -3,12 +3,14 @@
  */
 
 import React from 'react'
+import Player from './Player'
 
 class Map extends React.Component {
   render() {
     return (
       <div>
         MAP
+        <Player />
       </div>
     )
   }
