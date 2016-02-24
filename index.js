@@ -3,11 +3,13 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
-
+import store from './store'
 import './styles/main.scss';
 import Game from './components/Game';
 
 render(
-  <Game />,
+  <Provider store={store}>
+    <Game />
+  </Provider>,
   document.getElementById('app')
 )

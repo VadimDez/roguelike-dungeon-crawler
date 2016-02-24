@@ -17,4 +17,8 @@ class Game extends React.Component {
   }
 }
 
+Game.contextTypes = {
+  store: React.PropTypes.object
+}
+
 export default Game
