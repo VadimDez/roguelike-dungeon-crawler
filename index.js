@@ -6,6 +6,7 @@ import {render} from 'react-dom';
 import store from './store'
 import './styles/main.scss';
 import Game from './components/Game';
+import {Provider} from 'react-redux'
 
 render(
   <Provider store={store}>
