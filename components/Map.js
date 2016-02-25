@@ -14,25 +14,29 @@ class Map extends React.Component {
         MAP
         <Player />
 
-        { this.renderMap(state.game.map) }
+        { this.renderMap(state.game.map, state.game.position) }
       </div>
     )
   }
 
   /**
    * Render map
-   * @param map
+   * @param {array}   map
+   * @param {Object}  playerPosition
    * @returns {*}
    */
-  renderMap(map) {
-    return map.map.map((row, i) => {
+  renderMap(map, playerPosition) {
+    return map.map((row, x) => {
       return (
-        <div className="row" key={i}>
+        <div className="row" key={x}>
           {
-            row.map((block, c) => {
-              return (
-                <span key={c}>{block}</span>
-              )
+            row.map((block, y) => {
+
+              if (playerPosition.x === x && playerPosition.y === y) {
+                return <Player key={`${x}-${y}`} />
+              }
+
+              return <span key={`${x}-${y}`}>{block}</span>
             })
           }
         </div>

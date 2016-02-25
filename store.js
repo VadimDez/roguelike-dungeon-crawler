@@ -9,7 +9,7 @@ const player = (state = {}, action) => {
   return state
 }
 
-const game = (state = {map: map1}, action) => {
+const game = (state = {map: map1.map, position: map1.startPosition}, action) => {
   return state
 }
 

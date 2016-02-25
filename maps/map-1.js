@@ -3,7 +3,10 @@
  */
 
 export default {
-  startPosition: [1, 1],
+  startPosition: {
+    x: 1,
+    y: 1
+  },
   map: [
     [1, 1, 1, 1],
     [1, 0, 0, 1],
