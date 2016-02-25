@@ -11,7 +11,7 @@ class Player extends React.Component {
   }
 
   actions() {
-    document.addEventListener('keyup', e => {
+    window.addEventListener('keyup', e => {
       switch (e.which) {
         case 37:
           this.moveLeft()
@@ -30,12 +30,22 @@ class Player extends React.Component {
   }
 
   moveUp() {
+    this.move('MOVE_PLAYER_UP')
   }
   moveDown() {
+    this.move('MOVE_PLAYER_DOWN')
   }
   moveLeft() {
+    this.move('MOVE_PLAYER_LEFT')
   }
   moveRight() {
+    this.move('MOVE_PLAYER_RIGHT')
+  }
+
+  move(type) {
+    this.context.store.dispatch({
+      type
+    })
   }
 
   render() {
@@ -43,6 +53,10 @@ class Player extends React.Component {
       <span>P</span>
     )
   }
+}
+
+Player.contextTypes = {
+  store: React.PropTypes.object
 }
 
 export default Player

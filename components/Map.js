@@ -11,12 +11,21 @@ class Map extends React.Component {
 
     return (
       <div>
-        MAP
-        <Player />
-
         { this.renderMap(state.game.map, state.game.position) }
       </div>
     )
+  }
+
+  componentDidMount() {
+    const store = this.context.store
+
+    this.unsubscribe = store.subscribe(() => {
+      this.forceUpdate()
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   /**
@@ -26,11 +35,11 @@ class Map extends React.Component {
    * @returns {*}
    */
   renderMap(map, playerPosition) {
-    return map.map((row, x) => {
+    return map.map((row, y) => {
       return (
-        <div className="row" key={x}>
+        <div className="row" key={y}>
           {
-            row.map((block, y) => {
+            row.map((block, x) => {
 
               if (playerPosition.x === x && playerPosition.y === y) {
                 return <Player key={`${x}-${y}`} />

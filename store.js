@@ -10,6 +10,45 @@ const player = (state = {}, action) => {
 }
 
 const game = (state = {map: map1.map, position: map1.startPosition}, action) => {
+
+  console.log(action.type);
+
+  if (action.type === 'MOVE_PLAYER_RIGHT') {
+    return Object.assign({}, state, {
+      position: {
+        x: state.position.x + 1,
+        y: state.position.y
+      }
+    })
+  }
+
+  if (action.type === 'MOVE_PLAYER_LEFT') {
+    return Object.assign({}, state, {
+      position: {
+        x: state.position.x - 1,
+        y: state.position.y
+      }
+    })
+  }
+
+  if (action.type === 'MOVE_PLAYER_UP') {
+    return Object.assign({}, state, {
+      position: {
+        x: state.position.x,
+        y: state.position.y + 1
+      }
+    })
+  }
+
+  if (action.type === 'MOVE_PLAYER_DOWN') {
+    return Object.assign({}, state, {
+      position: {
+        x: state.position.x,
+        y: state.position.y - 1
+      }
+    })
+  }
+
   return state
 }
 
