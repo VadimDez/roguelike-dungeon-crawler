@@ -3,11 +3,17 @@
  */
 
 import {createStore, combineReducers} from 'redux'
+import map1 from './maps/map-1'
 
 const player = (state = {}, action) => {
   return state
 }
 
+const game = (state = {map: map1}, action) => {
+  return state
+}
+
 export default createStore(combineReducers({
-  player
+  player,
+  game
 }))
