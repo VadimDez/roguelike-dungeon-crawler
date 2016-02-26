@@ -11,7 +11,7 @@ const player = (state = {}, action) => {
 
 const game = (state = {map: map1.map, position: map1.startPosition}, action) => {
 
-  if (action.type === 'MOVE_PLAYER_RIGHT' && state.map[state.position.x + 1][state.position.y] === 0) {
+  if (action.type === 'MOVE_PLAYER_RIGHT' && state.map[state.position.y][state.position.x + 1] === 0) {
     return Object.assign({}, state, {
       position: {
         x: state.position.x + 1,
@@ -20,7 +20,7 @@ const game = (state = {map: map1.map, position: map1.startPosition}, action) => 
     })
   }
 
-  if (action.type === 'MOVE_PLAYER_LEFT' && state.map[state.position.x - 1][state.position.y] === 0) {
+  if (action.type === 'MOVE_PLAYER_LEFT' && state.map[state.position.y][state.position.x - 1] === 0) {
     return Object.assign({}, state, {
       position: {
         x: state.position.x - 1,
@@ -29,7 +29,7 @@ const game = (state = {map: map1.map, position: map1.startPosition}, action) => 
     })
   }
 
-  if (action.type === 'MOVE_PLAYER_UP' && state.map[state.position.x][state.position.y - 1] === 0) {
+  if (action.type === 'MOVE_PLAYER_UP' && state.map[state.position.y - 1][state.position.x] === 0) {
     return Object.assign({}, state, {
       position: {
         x: state.position.x,
@@ -38,8 +38,7 @@ const game = (state = {map: map1.map, position: map1.startPosition}, action) => 
     })
   }
 
-  if (action.type === 'MOVE_PLAYER_DOWN' && state.map[state.position.x][state.position.y + 1] === 0) {
-
+  if (action.type === 'MOVE_PLAYER_DOWN' && state.map[state.position.y + 1][state.position.x] === 0) {
     return Object.assign({}, state, {
       position: {
         x: state.position.x,
