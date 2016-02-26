@@ -35,7 +35,7 @@ const game = (state = {map: map1.map, position: map1.startPosition}, action) => 
     return Object.assign({}, state, {
       position: {
         x: state.position.x,
-        y: state.position.y + 1
+        y: state.position.y - 1
       }
     })
   }
@@ -44,7 +44,7 @@ const game = (state = {map: map1.map, position: map1.startPosition}, action) => 
     return Object.assign({}, state, {
       position: {
         x: state.position.x,
-        y: state.position.y - 1
+        y: state.position.y + 1
       }
     })
   }
