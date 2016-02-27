@@ -3,15 +3,14 @@
  */
 
 class Enemy {
-  constructor(level = 1, health = 10, damage = 1, isBoss = false) {
+  constructor(level = 1, health = 10, isBoss = false) {
     this.level = level
     this.health = health
     this.isBoss = isBoss
-    this.damage = damage
   }
 
   attack() {
-    return this.level * this.damage
+    return this.level * 3 * Math.floor(Math.random() + 2)
   }
 }
 
