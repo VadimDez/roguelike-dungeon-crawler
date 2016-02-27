@@ -5,7 +5,7 @@
 import {createStore, combineReducers} from 'redux'
 import map1 from './maps/map-1'
 
-const player = (state = {}, action) => {
+const player = (state = {health: 100}, action) => {
   return state
 }
 
