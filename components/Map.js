@@ -4,6 +4,9 @@
 
 import React from 'react'
 import Player from './Player'
+import Enemy from './../Entities/Enemy'
+import Weapon from './../Entities/Weapon'
+import Health from './../Entities/Health'
 
 class Map extends React.Component {
   render() {
@@ -43,6 +46,18 @@ class Map extends React.Component {
 
               if (playerPosition.x === x && playerPosition.y === y) {
                 return <Player key={`${x}-${y}`} />
+              }
+
+              if (block instanceof Enemy) {
+                return <span key={`${x}-${y}`}>E</span>
+              }
+
+              if (block instanceof Weapon) {
+                return <span key={`${x}-${y}`}>W</span>
+              }
+
+              if (block instanceof Health) {
+                return <span key={`${x}-${y}`}>H</span>
               }
 
               return <span key={`${x}-${y}`}>{block}</span>

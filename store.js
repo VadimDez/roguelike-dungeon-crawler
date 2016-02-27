@@ -4,12 +4,18 @@
 
 import {createStore, combineReducers} from 'redux'
 import map1 from './maps/map-1'
+import Enemy from './Entities/Enemy'
+import Weapon from './Entities/Weapon'
+import Health from './Entities/Health'
 
-const player = (state = {}, action) => {
-  return state
+const player = {
+  health: 100,
+  weapon: new Weapon('Hands', 5),
+  experience: 0,
+  level: 0
 }
 
-const game = (state = {map: map1.map, position: map1.startPosition, player: {health: 100, weapon: 'weapon1'}}, action) => {
+const game = (state = {map: map1.map, position: map1.startPosition, player: player}, action) => {
 
   if (action.type === 'MOVE_PLAYER_RIGHT') {
     return move(state, state.position.x + 1, state.position.y)
@@ -30,10 +36,19 @@ const game = (state = {map: map1.map, position: map1.startPosition, player: {hea
   return state
 }
 
+/**
+ * Move
+ *
+ * @param {object}  state
+ * @param {int}     x
+ * @param {int}     y
+ * @returns {*}
+ */
 function move(state, x, y) {
   const block = state.map[y][x]
   let update
 
+  // wall
   if (block === 1) {
     return state;
   }
@@ -46,24 +61,49 @@ function move(state, x, y) {
   }
 
   // health
-  if (block === 2) {
+  if (block instanceof Health) {
     update.map = clearBlock(state.map, x, y)
     update.player = Object.assign({}, state.player, {
-      health: state.player.health + 20
+      health: state.player.health + block.value
     });
   }
 
   // weapon
-  if (block === 3) {
+  if (block instanceof Weapon) {
     update.map = clearBlock(state.map, x, y)
     update.player = Object.assign({}, state.player, {
-      weapon: 'weapon2'
+      weapon: block
     });
+  }
+
+  // enemy
+  if (block instanceof Enemy) {
+    block.health -= state.player.weapon.damage
+    if (block.health <= 0) {
+      update.map = clearBlock(state.map, x, y)
+    } else {
+      update = {
+        map: state.map.slice(0)
+      }
+      update.map[y][x] = block
+
+      update.player = Object.assign({}, state.player, {
+        health: state.player.health - block.attack()
+      })
+    }
   }
 
   return Object.assign({}, state, update)
 }
 
+/**
+ * Clear map's block
+ *
+ * @param {Array} map
+ * @param {int}   x
+ * @param {int}   y
+ * @returns {Array}
+ */
 function clearBlock(map, x, y) {
   let updated = map.slice(0)
   updated[y][x] = 0
@@ -71,6 +111,5 @@ function clearBlock(map, x, y) {
 }
 
 export default createStore(combineReducers({
-  player,
   game
 }))
