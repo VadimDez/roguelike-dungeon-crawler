@@ -22,7 +22,7 @@ class StatusBar extends React.Component {
 
     return (
       <div>
-        Health: {state.game.player.health }, Lvl: 0, Weapon: None
+        Health: {state.game.player.health }, Lvl: 0, Weapon: { state.game.player.weapon }
       </div>
     )
   }

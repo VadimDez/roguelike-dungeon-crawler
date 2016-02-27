@@ -9,7 +9,7 @@ const player = (state = {}, action) => {
   return state
 }
 
-const game = (state = {map: map1.map, position: map1.startPosition, player: {health: 100}}, action) => {
+const game = (state = {map: map1.map, position: map1.startPosition, player: {health: 100, weapon: 'weapon1'}}, action) => {
 
   if (action.type === 'MOVE_PLAYER_RIGHT') {
     return move(state, state.position.x + 1, state.position.y)
@@ -45,13 +45,29 @@ function move(state, x, y) {
     }
   }
 
-  if (block === 2) { // health
-    update.map = state.map.slice(0)
-    update.map[y][x] = 0
-    update.player = {health: state.player.health + 20}
+  // health
+  if (block === 2) {
+    update.map = clearBlock(state.map, x, y)
+    update.player = Object.assign({}, state.player, {
+      health: state.player.health + 20
+    });
+  }
+
+  // weapon
+  if (block === 3) {
+    update.map = clearBlock(state.map, x, y)
+    update.player = Object.assign({}, state.player, {
+      weapon: 'weapon2'
+    });
   }
 
   return Object.assign({}, state, update)
+}
+
+function clearBlock(map, x, y) {
+  let updated = map.slice(0)
+  updated[y][x] = 0
+  return updated
 }
 
 export default createStore(combineReducers({
