@@ -10,7 +10,7 @@ class Enemy {
   }
 
   attack() {
-    return this.level * 3 * Math.floor(Math.random() + 2)
+    return this.level * 3 * Math.floor(Math.random() + 2) * (this.isBoss ? 3 : 1)
   }
 }
 

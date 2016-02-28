@@ -25,7 +25,15 @@ let data = {
   ]
 }
 
-var objects = [new Enemy(1, 20), new Enemy(1, 20), new Enemy(1, 10), new Weapon('Knife', 10), new Health()]
+var objects = [
+  new Enemy(1, 30),
+  new Enemy(1, 40),
+  new Enemy(2, 50),
+  new Enemy(3, 60),
+  new Enemy(4, 100, true),
+  new Weapon('Knife', 10),
+  new Health()
+]
 // set objects on map
 objects.forEach(function (object) {
   randomPoint = getRandomEmptyPointOnMap(data.map)

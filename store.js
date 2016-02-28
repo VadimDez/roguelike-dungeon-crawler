@@ -108,11 +108,28 @@ function move(state, x, y) {
       player.health = state.player.health - block.attack()
     }
 
-    // update player
-    update.player = Object.assign({}, state.player, player)
+
+    if (player.health <= 0) {
+      update = reset()
+    } else {
+      // update player
+      update.player = Object.assign({}, state.player, player)
+    }
   }
 
   return Object.assign({}, state, update)
+}
+
+/**
+ * Reset state
+ * @returns {{map: Array, position: (data.startPosition|{x, y}), player: {health: number, weapon: Weapon, experience: number, maxExp: number, level: number}}}
+ */
+function reset() {
+  return {
+    map: map1.map,
+    position: map1.startPosition,
+    player: player
+  }
 }
 
 /**

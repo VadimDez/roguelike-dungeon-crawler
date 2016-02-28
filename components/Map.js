@@ -54,7 +54,7 @@ class Map extends React.Component {
               }
 
               if (block instanceof Enemy) {
-                return <span key={`${x}-${y}`} className="enemy"> </span>
+                return <span key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}> </span>
               }
 
               if (block instanceof Weapon) {
