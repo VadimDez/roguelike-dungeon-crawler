@@ -7,7 +7,9 @@ import map1 from './maps/map-1'
 import Enemy from './Entities/Enemy'
 import Weapon from './Entities/Weapon'
 import Health from './Entities/Health'
+import {getRandomEmptyPointOnMap} from './utils'
 
+let dataMap = reset()
 const player = {
   health: 100,
   weapon: new Weapon('Hands', 5),
@@ -16,108 +18,81 @@ const player = {
   level: 0
 }
 
-const game = (state = {map: map1.map, position: map1.startPosition, player: player}, action) => {
+const game = (state = {map: dataMap.map, position: dataMap.startPosition, player: player}, action) => {
 
-  if (action.type === 'MOVE_PLAYER_RIGHT') {
-    return move(state, state.position.x + 1, state.position.y)
+  if (action.type === 'UPDATE_PLAYER_POSITION') {
+    return Object.assign({}, state, {
+      position: action.position
+    })
   }
 
-  if (action.type === 'MOVE_PLAYER_LEFT') {
-    return move(state, state.position.x - 1, state.position.y)
+  if (action.type === 'UPDATE_MAP_CLEAR') {
+    let map = state.map.slice(0)
+    map[action.position.y][action.position.x] = 0
+    return Object.assign({}, state, {
+      map: map
+    })
   }
 
-  if (action.type === 'MOVE_PLAYER_UP') {
-    return move(state, state.position.x, state.position.y - 1)
+  if (action.type === 'UPDATE_PLAYER_HEALTH') {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        health: action.health
+      })
+    })
   }
 
-  if (action.type === 'MOVE_PLAYER_DOWN') {
-    return move(state, state.position.x, state.position.y + 1)
+  if (action.type === 'UPDATE_PLAYER_WEAPON') {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        weapon: action.weapon
+      })
+    })
+  }
+
+  if (action.type === 'UPDATE_PLAYER_EXPERIENCE') {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        experience: action.experience
+      })
+    })
+  }
+
+  if (action.type === 'UPDATE_PLAYER_LEVEL') {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        level: action.level
+      })
+    })
+  }
+
+  if (action.type === 'UPDATE_PLAYER_MAX_EXPERIENCE') {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        maxExp: action.maxExp
+      })
+    })
+  }
+
+  if (action.type === 'UPDATE_MAP_BLOCK') {
+    let map = state.map.slice(0)
+    map[action.position.y][action.position.x] = action.block
+    return Object.assign({}, state, {
+      map: map
+    })
+  }
+
+
+  if (action.type === 'UPDATE_MAP_RESET') {
+    const data = reset()
+    const newState = Object.assign({}, state, {map: []})
+    return Object.assign({}, newState, {
+      map: data.map,
+      position: data.startPosition
+    });
   }
 
   return state
-}
-
-/**
- * Move
- *
- * @param {object}  state
- * @param {int}     x
- * @param {int}     y
- * @returns {*}
- */
-function move(state, x, y) {
-  const block = state.map[y][x]
-  let update
-  let player
-
-  // wall
-  if (block === 1) {
-    return state;
-  }
-
-  update = {
-    position: {
-      x,
-      y
-    }
-  }
-
-  // health
-  if (block instanceof Health) {
-    update.map = clearBlock(state.map, x, y)
-    update.player = Object.assign({}, state.player, {
-      health: state.player.health + block.value
-    });
-  }
-
-  // weapon
-  if (block instanceof Weapon) {
-    update.map = clearBlock(state.map, x, y)
-    update.player = Object.assign({}, state.player, {
-      weapon: block
-    });
-  }
-
-  // enemy
-  if (block instanceof Enemy) {
-    block.health -= (state.player.weapon.damage + state.player.level) * Math.floor(Math.random() + 2)
-    player = {}
-
-    if (block.health <= 0) {
-      // remove enemy from map
-      update.map = clearBlock(state.map, x, y)
-
-      // increase xp
-      player.experience = state.player.experience + block.level * 5
-
-      // increase level
-      if (state.player.maxExp < player.experience) {
-        player.experience = player.experience - state.player.maxExp
-        player.level = state.player.level + 1
-        player.maxExp = state.player.maxExp * 2
-      }
-
-    } else {
-      update = {
-        map: state.map.slice(0)
-      }
-      // update enemy stats
-      update.map[y][x] = block
-
-      // update player health after enemy attacked
-      player.health = state.player.health - block.attack()
-    }
-
-
-    if (player.health <= 0) {
-      update = reset()
-    } else {
-      // update player
-      update.player = Object.assign({}, state.player, player)
-    }
-  }
-
-  return Object.assign({}, state, update)
 }
 
 /**
@@ -125,25 +100,25 @@ function move(state, x, y) {
  * @returns {{map: Array, position: (data.startPosition|{x, y}), player: {health: number, weapon: Weapon, experience: number, maxExp: number, level: number}}}
  */
 function reset() {
-  return {
-    map: map1.map,
-    position: map1.startPosition,
-    player: player
-  }
-}
+  var objects = [
+    new Enemy(1, 30),
+    new Enemy(1, 40),
+    new Enemy(2, 50),
+    new Enemy(3, 60),
+    new Enemy(4, 100, true),
+    new Weapon('Knife', 10),
+    new Health()
+  ]
+  let randomPoint
+  let data = Object.assign({map: []}, map1);
 
-/**
- * Clear map's block
- *
- * @param {Array} map
- * @param {int}   x
- * @param {int}   y
- * @returns {Array}
- */
-function clearBlock(map, x, y) {
-  let updated = map.slice(0)
-  updated[y][x] = 0
-  return updated
+  // set objects on map
+  objects.forEach(function (object) {
+    randomPoint = getRandomEmptyPointOnMap(data.map)
+    data.map[randomPoint.y][randomPoint.x] = object
+  })
+
+  return data
 }
 
 export default createStore(combineReducers({
