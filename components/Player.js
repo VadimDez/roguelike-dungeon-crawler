@@ -6,7 +6,7 @@ import React from 'react'
 class Player extends React.Component {
   render() {
     return (
-      <span>P</span>
+      <span className="player"> </span>
     )
   }
 }

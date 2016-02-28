@@ -44,23 +44,28 @@ class Map extends React.Component {
           {
             row.map((block, x) => {
 
+              // hide
+              if (Math.abs(x - playerPosition.x) > 3 || Math.abs(y - playerPosition.y) > 3) {
+                return <span key={`${x}-${y}`} className="wall"> </span>
+              }
+
               if (playerPosition.x === x && playerPosition.y === y) {
                 return <Player key={`${x}-${y}`} />
               }
 
               if (block instanceof Enemy) {
-                return <span key={`${x}-${y}`}>E</span>
+                return <span key={`${x}-${y}`} className="enemy"> </span>
               }
 
               if (block instanceof Weapon) {
-                return <span key={`${x}-${y}`}>W</span>
+                return <span key={`${x}-${y}`} className="weapon"> </span>
               }
 
               if (block instanceof Health) {
-                return <span key={`${x}-${y}`}>H</span>
+                return <span key={`${x}-${y}`} className="health"> </span>
               }
 
-              return <span key={`${x}-${y}`}>{block}</span>
+              return <span key={`${x}-${y}`} className={block ? 'wall' : 'empty'}> </span>
             })
           }
         </div>

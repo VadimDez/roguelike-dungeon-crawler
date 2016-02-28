@@ -1,0 +1,29 @@
+.row {
+  height: 10px;
+  span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #FFFFFF;
+
+    &.wall {
+      background: #000000;
+    }
+
+    &.player {
+      background: #00FF00;
+    }
+
+    &.enemy {
+      background: #FF0000;
+    }
+
+    &.health {
+      background: #0000FF;
+    }
+
+    &.weapon {
+      background: #FFFF00;
+    }
+  }
+}

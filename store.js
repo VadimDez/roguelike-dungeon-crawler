@@ -92,7 +92,7 @@ function move(state, x, y) {
 
       // increase level
       if (state.player.maxExp < player.experience) {
-        player.experience = 0
+        player.experience = player.experience - state.player.maxExp
         player.level = state.player.level + 1
         player.maxExp = state.player.maxExp * 2
       }
