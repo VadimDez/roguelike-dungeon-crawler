@@ -7,6 +7,7 @@ import Player from './Player'
 import Enemy from './../Entities/Enemy'
 import Weapon from './../Entities/Weapon'
 import Health from './../Entities/Health'
+import Teleport from './../Entities/Teleport'
 
 class Map extends React.Component {
   render() {
@@ -57,12 +58,8 @@ class Map extends React.Component {
                 return <span key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}> </span>
               }
 
-              if (block instanceof Weapon) {
-                return <span key={`${x}-${y}`} className="weapon"> </span>
-              }
-
-              if (block instanceof Health) {
-                return <span key={`${x}-${y}`} className="health"> </span>
+              if (block instanceof Weapon || block instanceof Health || block instanceof Teleport) {
+                return <span key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}> </span>
               }
 
               return <span key={`${x}-${y}`} className={block ? 'wall' : 'empty'}> </span>

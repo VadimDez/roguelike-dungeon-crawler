@@ -7,6 +7,7 @@ import map1 from './maps/map-1'
 import Enemy from './Entities/Enemy'
 import Weapon from './Entities/Weapon'
 import Health from './Entities/Health'
+import Teleport from './Entities/Teleport'
 import {getRandomEmptyPointOnMap} from './utils'
 
 let dataMap = reset()
@@ -107,8 +108,9 @@ function reset() {
     new Enemy(3, 60),
     new Enemy(4, 100, true),
     new Weapon('Knife', 10),
-    new Health()
-  ]
+    new Health(),
+    new Teleport()
+  ];
   let randomPoint
   let data = Object.assign({map: []}, map1);
 
