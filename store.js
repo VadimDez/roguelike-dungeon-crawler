@@ -96,34 +96,10 @@ const game = (state = {map: dataMap.map, position: dataMap.startPosition, player
 
 /**
  * Reset state
- * @returns {{map: Array, position: (data.startPosition|{x, y}), player: {health: number, weapon: Weapon, experience: number, maxExp: number, level: number}}}
+ * @returns {Object}
  */
 function reset() {
-  var objects = [
-    new Enemy(1, 30),
-    new Enemy(1, 40),
-    new Enemy(2, 50),
-    new Enemy(3, 60),
-    new Enemy(4, 100, true),
-    new Weapon('Knife', 10),
-    new Health(),
-    new Teleport()
-  ];
-  let randomPoint
-  let map = map1.map.map(function (row) {
-    return row.slice()
-  })
-
-  // set objects on map
-  objects.forEach(function (object) {
-    randomPoint = getRandomEmptyPointOnMap(map)
-    map[randomPoint.y][randomPoint.x] = object
-  })
-
-  return {
-    map: map,
-    startPosition: map1.startPosition
-  }
+  return map1()()
 }
 
 export default createStore(combineReducers({
