@@ -8,6 +8,7 @@ import Map from './Map'
 import Health from './../Entities/Health'
 import Weapon from './../Entities/Weapon'
 import Enemy from './../Entities/Enemy'
+import Teleport from './../Entities/Teleport'
 import map1 from './../maps/map-1'
 
 class Game extends React.Component {

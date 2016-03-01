@@ -83,14 +83,12 @@ const game = (state = {map: dataMap.map, position: dataMap.startPosition, player
     })
   }
 
-
   if (action.type === 'UPDATE_MAP_RESET') {
     const data = reset()
-    const newState = Object.assign({}, state, {map: []})
-    return Object.assign({}, newState, {
+    return Object.assign({}, state, {
       map: data.map,
       position: data.startPosition
-    });
+    })
   }
 
   return state
@@ -112,15 +110,20 @@ function reset() {
     new Teleport()
   ];
   let randomPoint
-  let data = Object.assign({map: []}, map1);
+  let map = map1.map.map(function (row) {
+    return row.slice()
+  })
 
   // set objects on map
   objects.forEach(function (object) {
-    randomPoint = getRandomEmptyPointOnMap(data.map)
-    data.map[randomPoint.y][randomPoint.x] = object
+    randomPoint = getRandomEmptyPointOnMap(map)
+    map[randomPoint.y][randomPoint.x] = object
   })
 
-  return data
+  return {
+    map: map,
+    startPosition: map1.startPosition
+  }
 }
 
 export default createStore(combineReducers({
