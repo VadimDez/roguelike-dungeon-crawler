@@ -16,7 +16,7 @@ export default function () {
     new Enemy(4, 100, true),
     new Weapon('Knife', 10),
     new Health(),
-    new Teleport()
+    new Teleport('map2')
   ]
   return function () {
     let randomPoint

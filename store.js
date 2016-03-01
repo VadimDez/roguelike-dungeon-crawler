@@ -3,7 +3,8 @@
  */
 
 import {createStore, combineReducers} from 'redux'
-import map1 from './maps/map-1'
+import map1 from './maps/map1'
+import map2 from './maps/map2'
 import Enemy from './Entities/Enemy'
 import Weapon from './Entities/Weapon'
 import Health from './Entities/Health'
@@ -84,14 +85,24 @@ const game = (state = {map: dataMap.map, position: dataMap.startPosition, player
   }
 
   if (action.type === 'UPDATE_MAP_RESET') {
-    const data = reset()
-    return Object.assign({}, state, {
-      map: data.map,
-      position: data.startPosition
-    })
+    return setMap(state, reset())
+  }
+
+  if (action.type === 'CHANGE_LEVEL') {
+    switch (action.map) {
+      case 'map2':
+        return setMap(state, map2()())
+    }
   }
 
   return state
+}
+
+function setMap(state, data) {
+  return Object.assign({}, state, {
+    map: data.map,
+    position: data.startPosition
+  })
 }
 
 /**

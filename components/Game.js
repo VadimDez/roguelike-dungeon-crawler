@@ -9,7 +9,7 @@ import Health from './../Entities/Health'
 import Weapon from './../Entities/Weapon'
 import Enemy from './../Entities/Enemy'
 import Teleport from './../Entities/Teleport'
-import map1 from './../maps/map-1'
+import map1 from './../maps/map1'
 
 class Game extends React.Component {
   constructor() {
@@ -63,7 +63,6 @@ class Game extends React.Component {
       this.clearBlock(x, y)
       this.updateHealth(state.game.player.health + block.value)
     }
-
 
     // weapon
     if (block instanceof Weapon) {
@@ -124,6 +123,14 @@ class Game extends React.Component {
 
         return
       }
+    }
+
+    if (block instanceof Teleport) {
+      this.context.store.dispatch({
+        type: 'CHANGE_LEVEL',
+        map: block.map
+      })
+      return
     }
 
     this.context.store.dispatch({
