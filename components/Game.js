@@ -9,7 +9,7 @@ import Health from './../Entities/Health'
 import Weapon from './../Entities/Weapon'
 import Enemy from './../Entities/Enemy'
 import Teleport from './../Entities/Teleport'
-import map1 from './../maps/map1'
+import Modal from './Modal'
 
 class Game extends React.Component {
   constructor() {
@@ -166,11 +166,31 @@ class Game extends React.Component {
     })
   }
 
+  closeModal(modalType) {
+    return function () {
+      this.context.store.dispatch({
+        type: 'UPDATE_MODAL',
+        modal: modalType,
+        value: false
+      })
+    }
+  }
+
   render() {
+    let modal;
+    const state = this.context.store.getState()
+
+    if (state.modals.loseModal) {
+      modal = <Modal text="You lose. Try again." onClick={this.closeModal('loseModal').bind(this)}/>;
+    } else if (state.modals.winModal) {
+      modal = <Modal text="You won!" onClick={this.closeModal('winModal').bind(this)}/>;
+    }
+
     return (
       <div>
         <StatusBar />
         <Map />
+        { modal }
       </div>
     )
   }

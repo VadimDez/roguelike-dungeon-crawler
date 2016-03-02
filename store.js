@@ -113,6 +113,17 @@ function reset() {
   return map1()()
 }
 
+const modals = (state = {winModal: false, loseModal: false}, action) => {
+  if (action.type === 'UPDATE_MODAL') {
+    return Object.assign({}, state, {
+      [action.modal]: action.value
+    })
+  }
+
+  return state
+}
+
 export default createStore(combineReducers({
-  game
+  game,
+  modals
 }))
