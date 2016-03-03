@@ -82,7 +82,6 @@ class Game extends React.Component {
         this.clearBlock(x, y)
         let xp = state.game.player.experience + block.level * 5
 
-
         // increase level
         if (state.game.player.maxExp < xp) {
           xp -= state.game.player.maxExp
@@ -102,11 +101,16 @@ class Game extends React.Component {
           type: 'UPDATE_PLAYER_EXPERIENCE',
           experience: xp
         })
+
+        if (block.isBoss) {
+          this.showModal('winModal')
+        }
       } else {
         let health = state.game.player.health - block.attack()
 
         if (health <= 0) {
           this.restart()
+          this.showModal('loseModal')
           return
         }
 
@@ -160,20 +164,29 @@ class Game extends React.Component {
   }
 
   restart() {
-    this.updateHealth(100)
+    this.updateHealth(100);
     this.context.store.dispatch({
       type: 'UPDATE_MAP_RESET'
     })
   }
 
   closeModal(modalType) {
-    return function () {
-      this.context.store.dispatch({
-        type: 'UPDATE_MODAL',
-        modal: modalType,
-        value: false
-      })
+    return () => {
+      this.updateModal(modalType, false)
     }
+  }
+
+  showModal(modalName) {
+    this.updateModal(modalName, true)
+  }
+
+  updateModal(name, value) {
+    this.context.store.dispatch({
+      type: 'UPDATE_MODAL',
+      modal: name,
+      value: value
+    });
+    this.forceUpdate();
   }
 
   render() {
