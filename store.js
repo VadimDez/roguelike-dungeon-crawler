@@ -18,9 +18,14 @@ const player = {
   experience: 0,
   maxExp: 10,
   level: 0
-}
+};
+const initialState = {
+  map: dataMap.map,
+  position: dataMap.startPosition,
+  player: player
+};
 
-const game = (state = {map: dataMap.map, position: dataMap.startPosition, player: player}, action) => {
+const game = (state = initialState, action) => {
 
   if (action.type === 'UPDATE_PLAYER_POSITION') {
     return Object.assign({}, state, {
