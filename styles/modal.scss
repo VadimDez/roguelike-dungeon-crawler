@@ -1,0 +1,20 @@
+.modal-container {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  .modal {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+    text-align: center;
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #8b8b8b;
+    border-radius: 3px;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+}
