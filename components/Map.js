@@ -47,7 +47,7 @@ class Map extends React.Component {
 
               // hide
               if (Math.abs(x - playerPosition.x) > 3 || Math.abs(y - playerPosition.y) > 3) {
-                return <span key={`${x}-${y}`} className="wall"> </span>
+                return <div key={`${x}-${y}`} className="wall"></div>
               }
 
               if (playerPosition.x === x && playerPosition.y === y) {
@@ -55,14 +55,14 @@ class Map extends React.Component {
               }
 
               if (block instanceof Enemy) {
-                return <span key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}> </span>
+                return <div key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}></div>
               }
 
               if (block instanceof Weapon || block instanceof Health || block instanceof Teleport) {
-                return <span key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}> </span>
+                return <div key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}></div>
               }
 
-              return <span key={`${x}-${y}`} className={block ? 'wall' : 'empty'}> </span>
+              return <div key={`${x}-${y}`} className={block ? 'wall' : 'empty'}></div>
             })
           }
         </div>

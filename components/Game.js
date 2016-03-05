@@ -202,6 +202,26 @@ class Game extends React.Component {
     return (
       <div>
         <StatusBar />
+        <div className="elements row">
+          <div>
+            <div className="wall"></div> Wall
+          </div>
+          <div>
+            <div className="enemy"></div> Enemy
+          </div>
+          <div>
+            <div className="health"></div> Health
+          </div>
+          <div>
+            <div className="player"></div> Player
+          </div>
+          <div>
+            <div className="weapon"></div> Weapon
+          </div>
+          <div>
+            <div className="teleport"></div> Teleport
+          </div>
+        </div>
         <Map />
         { modal }
       </div>

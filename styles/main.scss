@@ -1,7 +1,7 @@
 @import "modal";
 .row {
   height: 10px;
-  span {
+  div {
     display: inline-block;
     width: 10px;
     height: 10px;
@@ -34,5 +34,12 @@
     &.teleport {
       background: #b77dff;
     }
+  }
+}
+.elements {
+  padding-bottom: 10px;
+  > div {
+    display: inline;
+    margin-right: 10px;
   }
 }

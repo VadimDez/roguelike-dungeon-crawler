@@ -9,8 +9,10 @@ import {getRandomEmptyPointOnMap} from './../utils'
 export default function () {
   let objects = [
     new Enemy(4, 100, true),
+    new Enemy(2, 100),
     new Health(50),
     new Health(50),
+    new Health(20),
     new Weapon('Sword', 20)
   ]
   return function () {
