@@ -19,7 +19,7 @@ class Game extends React.Component {
   }
 
   actions() {
-    window.addEventListener('keyup', e => {
+    window.addEventListener('keydown', e => {
       switch (e.which) {
         case 37:
           this.moveLeft()
@@ -208,6 +208,9 @@ class Game extends React.Component {
           </div>
           <div>
             <div className="enemy"></div> Enemy
+          </div>
+          <div>
+            <div className="boss"></div> Boss
           </div>
           <div>
             <div className="health"></div> Health

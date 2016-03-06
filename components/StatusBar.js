@@ -21,7 +21,7 @@ class StatusBar extends React.Component {
     const state = this.context.store.getState()
 
     return (
-      <div>
+      <div className="status-bar">
         Health: {state.game.player.health }, Lvl: { state.game.player.level }, XP: { state.game.player.experience } / { state.game.player.maxExp } Weapon: { state.game.player.weapon.name }
       </div>
     )

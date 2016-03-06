@@ -1,4 +1,9 @@
+body {
+  margin: 0;
+}
+
 @import "modal";
+
 .row {
   height: 10px;
   div {
@@ -42,4 +47,8 @@
     display: inline;
     margin-right: 10px;
   }
+}
+.status-bar {
+  color: white;
+  background-color: black;
 }
