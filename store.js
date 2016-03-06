@@ -2,6 +2,7 @@
  * Created by Vadym Yatsyuk on 24/02/16
  */
 
+import * as actionTypes from './ActionTypes';
 import {createStore, combineReducers} from 'redux'
 import map1 from './maps/map1'
 import map2 from './maps/map2'
@@ -27,13 +28,13 @@ const initialState = {
 
 const game = (state = initialState, action) => {
 
-  if (action.type === 'UPDATE_PLAYER_POSITION') {
+  if (action.type === actionTypes.UPDATE_PLAYER_POSITION) {
     return Object.assign({}, state, {
       position: action.position
     })
   }
 
-  if (action.type === 'UPDATE_MAP_CLEAR') {
+  if (action.type === actionTypes.UPDATE_MAP_CLEAR) {
     let map = state.map.slice(0)
     map[action.position.y][action.position.x] = 0
     return Object.assign({}, state, {
@@ -41,7 +42,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_PLAYER_HEALTH') {
+  if (action.type === actionTypes.UPDATE_PLAYER_HEALTH) {
     return Object.assign({}, state, {
       player: Object.assign({}, state.player, {
         health: action.health
@@ -49,7 +50,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_PLAYER_WEAPON') {
+  if (action.type === actionTypes.UPDATE_PLAYER_WEAPON) {
     return Object.assign({}, state, {
       player: Object.assign({}, state.player, {
         weapon: action.weapon
@@ -57,7 +58,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_PLAYER_EXPERIENCE') {
+  if (action.type === actionTypes.UPDATE_PLAYER_EXPERIENCE) {
     return Object.assign({}, state, {
       player: Object.assign({}, state.player, {
         experience: action.experience
@@ -65,7 +66,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_PLAYER_LEVEL') {
+  if (action.type === actionTypes.UPDATE_PLAYER_LEVEL) {
     return Object.assign({}, state, {
       player: Object.assign({}, state.player, {
         level: action.level
@@ -73,7 +74,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_PLAYER_MAX_EXPERIENCE') {
+  if (action.type === actionTypes.UPDATE_PLAYER_MAX_EXPERIENCE) {
     return Object.assign({}, state, {
       player: Object.assign({}, state.player, {
         maxExp: action.maxExp
@@ -81,7 +82,7 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_MAP_BLOCK') {
+  if (action.type === actionTypes.UPDATE_MAP_BLOCK) {
     let map = state.map.slice(0)
     map[action.position.y][action.position.x] = action.block
     return Object.assign({}, state, {
@@ -89,11 +90,11 @@ const game = (state = initialState, action) => {
     })
   }
 
-  if (action.type === 'UPDATE_MAP_RESET') {
+  if (action.type === actionTypes.UPDATE_MAP_RESET) {
     return setMap(state, reset())
   }
 
-  if (action.type === 'CHANGE_LEVEL') {
+  if (action.type === actionTypes.CHANGE_LEVEL) {
     switch (action.map) {
       case 'map2':
         return setMap(state, map2()())
@@ -119,7 +120,7 @@ function reset() {
 }
 
 const modals = (state = {winModal: false, loseModal: false}, action) => {
-  if (action.type === 'UPDATE_MODAL') {
+  if (action.type === actionTypes.UPDATE_MODAL) {
     return Object.assign({}, state, {
       [action.modal]: action.value
     })

@@ -10,6 +10,7 @@ import Weapon from './../Entities/Weapon'
 import Enemy from './../Entities/Enemy'
 import Teleport from './../Entities/Teleport'
 import Modal from './Modal'
+import * as actionTypes from './../ActionTypes';
 
 class Game extends React.Component {
   constructor() {
@@ -69,7 +70,7 @@ class Game extends React.Component {
       this.clearBlock(x, y)
 
       this.context.store.dispatch({
-        type: 'UPDATE_PLAYER_WEAPON',
+        type: actionTypes.UPDATE_PLAYER_WEAPON,
         weapon: block
       })
     }
@@ -87,18 +88,18 @@ class Game extends React.Component {
           xp -= state.game.player.maxExp
 
           this.context.store.dispatch({
-            type: 'UPDATE_PLAYER_LEVEL',
+            type: actionTypes.UPDATE_PLAYER_LEVEL,
             level: state.game.player.level + 1
           })
 
           this.context.store.dispatch({
-            type: 'UPDATE_PLAYER_MAX_EXPERIENCE',
+            type: actionTypes.UPDATE_PLAYER_MAX_EXPERIENCE,
             maxExp: state.game.player.maxExp * 2
           })
         }
 
         this.context.store.dispatch({
-          type: 'UPDATE_PLAYER_EXPERIENCE',
+          type: actionTypes.UPDATE_PLAYER_EXPERIENCE,
           experience: xp
         })
 
@@ -117,7 +118,7 @@ class Game extends React.Component {
         this.updateHealth(health)
 
         this.context.store.dispatch({
-          type: 'UPDATE_MAP_BLOCK',
+          type: actionTypes.UPDATE_MAP_BLOCK,
           block: block,
           position: {
             x,
@@ -131,14 +132,14 @@ class Game extends React.Component {
 
     if (block instanceof Teleport) {
       this.context.store.dispatch({
-        type: 'CHANGE_LEVEL',
+        type: actionTypes.CHANGE_LEVEL,
         map: block.map
       })
       return
     }
 
     this.context.store.dispatch({
-      type: 'UPDATE_PLAYER_POSITION',
+      type: actionTypes.UPDATE_PLAYER_POSITION,
       position: {
         x,
         y
@@ -148,14 +149,14 @@ class Game extends React.Component {
 
   updateHealth(health) {
     this.context.store.dispatch({
-      type: 'UPDATE_PLAYER_HEALTH',
+      type: actionTypes.UPDATE_PLAYER_HEALTH,
       health
     })
   }
 
   clearBlock(x, y) {
     this.context.store.dispatch({
-      type: 'UPDATE_MAP_CLEAR',
+      type: actionTypes.UPDATE_MAP_CLEAR,
       position: {
         x,
         y
@@ -166,7 +167,7 @@ class Game extends React.Component {
   restart() {
     this.updateHealth(100);
     this.context.store.dispatch({
-      type: 'UPDATE_MAP_RESET'
+      type: actionTypes.UPDATE_MAP_RESET
     })
   }
 
@@ -182,7 +183,7 @@ class Game extends React.Component {
 
   updateModal(name, value) {
     this.context.store.dispatch({
-      type: 'UPDATE_MODAL',
+      type: actionTypes.UPDATE_MODAL,
       modal: name,
       value: value
     });
