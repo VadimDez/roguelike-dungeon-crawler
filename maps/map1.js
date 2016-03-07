@@ -14,6 +14,7 @@ export default function () {
     new Enemy(2, 50),
     new Enemy(3, 60),
     new Weapon('Knife', 10),
+    new Health(50),
     new Health(),
     new Teleport('map2')
   ]
