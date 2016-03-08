@@ -226,6 +226,9 @@ class Game extends React.Component {
             <div className="teleport"></div> Teleport
           </div>
         </div>
+        <div className="actions">
+          <button onClick={this.restart.bind(this)}>Restart</button>
+        </div>
         <Map />
         { modal }
       </div>
