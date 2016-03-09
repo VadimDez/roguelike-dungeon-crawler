@@ -190,9 +190,16 @@ class Game extends React.Component {
     this.forceUpdate();
   }
 
+  toggleDarkness() {
+    this.context.store.dispatch({
+      type: actionTypes.UPDATE_DARKNESS,
+      value: !this.context.store.getState().game.darkness
+    });
+  }
+
   render() {
     let modal;
-    const state = this.context.store.getState()
+    const state = this.context.store.getState();
 
     if (state.modals.loseModal) {
       modal = <Modal text="You lose. Try again." onClick={this.closeModal('loseModal').bind(this)}/>;
@@ -228,6 +235,7 @@ class Game extends React.Component {
         </div>
         <div className="actions">
           <button onClick={this.restart.bind(this)}>Restart</button>
+          <button onClick={this.toggleDarkness.bind(this)}>Toggle darkness</button>
         </div>
         <Map />
         { modal }

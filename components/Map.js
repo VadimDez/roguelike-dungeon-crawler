@@ -11,11 +11,11 @@ import Teleport from './../Entities/Teleport'
 
 class Map extends React.Component {
   render() {
-    const state = this.context.store.getState();
+    this.state = this.context.store.getState();
 
     return (
       <div>
-        { this.renderMap(state.game.map, state.game.position) }
+        { this.renderMap() }
       </div>
     )
   }
@@ -34,23 +34,25 @@ class Map extends React.Component {
 
   /**
    * Render map
-   * @param {array}   map
-   * @param {Object}  playerPosition
    * @returns {*}
    */
-  renderMap(map, playerPosition) {
-    return map.map((row, y) => {
+  renderMap() {
+    return this.state.game.map.map((row, y) => {
       return (
         <div className="row" key={y}>
           {
             row.map((block, x) => {
 
               // hide
-              if (Math.abs(x - playerPosition.x) > 3 || Math.abs(y - playerPosition.y) > 3) {
+              if (
+                this.state.game.darkness
+                && (Math.abs(x - this.state.game.position.x) > 3
+                || Math.abs(y - this.state.game.position.y) > 3)
+              ) {
                 return <div key={`${x}-${y}`} className="wall"></div>
               }
 
-              if (playerPosition.x === x && playerPosition.y === y) {
+              if (this.state.game.position.x === x && this.state.game.position.y === y) {
                 return <Player key={`${x}-${y}`} />
               }
 

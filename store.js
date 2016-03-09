@@ -23,7 +23,8 @@ const player = {
 const initialState = {
   map: dataMap.map,
   position: dataMap.startPosition,
-  player: player
+  player: player,
+  darkness: true
 };
 
 const game = (state = initialState, action) => {
@@ -83,7 +84,7 @@ const game = (state = initialState, action) => {
   }
 
   if (action.type === actionTypes.UPDATE_MAP_BLOCK) {
-    let map = state.map.slice(0)
+    let map = state.map.slice(0);
     map[action.position.y][action.position.x] = action.block
     return Object.assign({}, state, {
       map: map
@@ -99,6 +100,12 @@ const game = (state = initialState, action) => {
       case 'map2':
         return setMap(state, map2()())
     }
+  }
+
+  if (action.type === actionTypes.UPDATE_DARKNESS) {
+    return Object.assign({}, state, {
+      darkness: action.value
+    });
   }
 
   return state
