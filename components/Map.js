@@ -49,7 +49,7 @@ class Map extends React.Component {
                 && (Math.abs(x - this.state.game.position.x) > 3
                 || Math.abs(y - this.state.game.position.y) > 3)
               ) {
-                return <div key={`${x}-${y}`} className="wall"></div>
+                return <div key={`${x}-${y}`} className="darkness"></div>
               }
 
               if (this.state.game.position.x === x && this.state.game.position.y === y) {
@@ -64,7 +64,7 @@ class Map extends React.Component {
                 return <div key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}></div>
               }
 
-              return <div key={`${x}-${y}`} className={block ? 'wall' : 'empty'}></div>
+              return <div key={`${x}-${y}`} className={block ? 'wall' : 'grass'}></div>
             })
           }
         </div>

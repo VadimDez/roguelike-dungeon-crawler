@@ -6,39 +6,47 @@ body {
 @import "modal";
 
 .row {
-  height: 12px;
+  height: 16px;
   div {
     display: inline-block;
-    width: 12px;
-    height: 12px;
-    background: #FFFFFF;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+
+    &.grass {
+      background-image: url(/images/grass.png);
+    }
 
     &.wall {
-      background: #000000;
+      background-image: url(/images/ground.png);
     }
 
     &.player {
-      background: #00FF00;
+      background-image: url(/images/player.png);
     }
 
     &.enemy {
-      background: #FF0000;
+      background-image: url(/images/enemy.png);
     }
 
     &.boss {
-      background: #990000;
+      background-image: url(/images/boss.png);
     }
 
     &.health {
-      background: #0000FF;
+      background-image: url(/images/health.png);
     }
 
     &.weapon {
-      background: #FFFF00;
+      background-image: url(/images/weapon.png);
     }
 
     &.teleport {
-      background: #b77dff;
+      background-image: url(/images/teleport.png);
+    }
+
+    &.darkness {
+      background: #000;
     }
   }
 }
