@@ -11,7 +11,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolveUrlLoader: {
-    root: './'
+    root: __dirname,
+    sourceMap: true
   },
   module: {
     loaders: [
@@ -26,12 +27,12 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ['style', 'css', 'resolve-url']
+        loader: ['style', 'css']
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loaders: ["style", "css", 'resolve-url', 'sass?sourceMap']
+        loaders: ["style", "css?sourceMap", 'resolve-url', 'sass?sourceMap']
       }
     ]
   }
