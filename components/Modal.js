@@ -11,6 +11,7 @@ export default class Modal extends React.Component {
         <div className="modal">
           <h3>{this.props.text}</h3>
           <button onClick={this.props.onClick}>Ok</button>
+          <button onClick={this.props.restart}>Restart</button>
         </div>
       </div>
     )

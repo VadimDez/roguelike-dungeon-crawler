@@ -202,9 +202,21 @@ class Game extends React.Component {
     const state = this.context.store.getState();
 
     if (state.modals.loseModal) {
-      modal = <Modal text="You lose. Try again." onClick={this.closeModal('loseModal').bind(this)}/>;
+      modal = <Modal text="You lose. Try again."
+                     onClick={this.closeModal('loseModal').bind(this)}
+                     restart={() => {
+                      this.closeModal('loseModal')()
+                      this.restart()
+                     }}
+      />;
     } else if (state.modals.winModal) {
-      modal = <Modal text="You won!" onClick={this.closeModal('winModal').bind(this)}/>;
+      modal = <Modal text="You won!"
+                     onClick={this.closeModal('winModal').bind(this)}
+                     restart={() => {
+                      this.closeModal('winModal')()
+                      this.restart()
+                     }}
+      />;
     }
 
     return (
