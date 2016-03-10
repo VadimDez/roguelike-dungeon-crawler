@@ -20897,7 +20897,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n}\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0;\n}\n\n.modal-container .modal {\n  margin-right: auto;\n  margin-left: auto;\n  background-color: #fff;\n  text-align: center;\n  padding: 10px;\n  width: 300px;\n  border: 1px solid #8b8b8b;\n  border-radius: 3px;\n}\n\n.modal-container .modal h3 {\n  margin-top: 0;\n}\n\n.row {\n  height: 16px;\n}\n\n.row div {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: transparent;\n}\n\n.row div.grass {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png);\n}\n\n.row div.wall {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/ground.png);\n}\n\n.row div.player {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/player.png);\n}\n\n.row div.enemy {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/enemy.png);\n}\n\n.row div.boss {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/boss.png);\n}\n\n.row div.health {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/health.png);\n}\n\n.row div.weapon {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/weapon.png);\n}\n\n.row div.teleport {\n  background-image: url(http://vadimdez.github.io/roguelike-dungeon-crawler/images/teleport.png);\n}\n\n.row div.darkness {\n  background: #000;\n}\n\n.elements {\n  padding-bottom: 10px;\n}\n\n.elements > div {\n  display: inline;\n  margin-right: 10px;\n}\n\n.status-bar {\n  color: white;\n  background-color: black;\n}\n\n", ""]);
+	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n}\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0;\n}\n\n.modal-container .modal {\n  margin-right: auto;\n  margin-left: auto;\n  background-color: #fff;\n  text-align: center;\n  padding: 10px;\n  width: 300px;\n  border: 1px solid #8b8b8b;\n  border-radius: 3px;\n}\n\n.modal-container .modal h3 {\n  margin-top: 0;\n}\n\n.row {\n  height: 16px;\n}\n\n.row div {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: transparent;\n}\n\n.row div.grass {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.wall {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/ground.png\");\n}\n\n.row div.player {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player.png\");\n}\n\n.row div.enemy {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/enemy.png\");\n}\n\n.row div.boss {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/boss.png\");\n}\n\n.row div.health {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/health.png\");\n}\n\n.row div.weapon {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/weapon.png\");\n}\n\n.row div.teleport {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/teleport.png\");\n}\n\n.row div.darkness {\n  background: #000;\n}\n\n.elements {\n  padding-bottom: 10px;\n}\n\n.elements > div {\n  display: inline;\n  margin-right: 10px;\n}\n\n.status-bar {\n  color: white;\n  background-color: black;\n}\n\n", ""]);
 
 	// exports
 
@@ -21485,13 +21485,27 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this4 = this;
+
 	      var modal = undefined;
 	      var state = this.context.store.getState();
 
 	      if (state.modals.loseModal) {
-	        modal = _react2.default.createElement(_Modal2.default, { text: 'You lose. Try again.', onClick: this.closeModal('loseModal').bind(this) });
+	        modal = _react2.default.createElement(_Modal2.default, { text: 'You lose. Try again.',
+	          onClick: this.closeModal('loseModal').bind(this),
+	          restart: function restart() {
+	            _this4.closeModal('loseModal')();
+	            _this4.restart();
+	          }
+	        });
 	      } else if (state.modals.winModal) {
-	        modal = _react2.default.createElement(_Modal2.default, { text: 'You won!', onClick: this.closeModal('winModal').bind(this) });
+	        modal = _react2.default.createElement(_Modal2.default, { text: 'You won!',
+	          onClick: this.closeModal('winModal').bind(this),
+	          restart: function restart() {
+	            _this4.closeModal('winModal')();
+	            _this4.restart();
+	          }
+	        });
 	      }
 
 	      return _react2.default.createElement(
@@ -21892,6 +21906,11 @@
 	            "button",
 	            { onClick: this.props.onClick },
 	            "Ok"
+	          ),
+	          _react2.default.createElement(
+	            "button",
+	            { onClick: this.props.restart },
+	            "Restart"
 	          )
 	        )
 	      );

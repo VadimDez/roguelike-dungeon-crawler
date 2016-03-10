@@ -1,3 +1,4 @@
+$image-uri: 'http://vadimdez.github.io/roguelike-dungeon-crawler';
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
@@ -14,35 +15,35 @@ body {
     background-color: transparent;
 
     &.grass {
-      background-image: url(/images/grass.png);
+      background-image: url($image-uri + '/images/grass.png');
     }
 
     &.wall {
-      background-image: url(/images/ground.png);
+      background-image: url($image-uri + '/images/ground.png');
     }
 
     &.player {
-      background-image: url(/images/player.png);
+      background-image: url($image-uri + '/images/player.png');
     }
 
     &.enemy {
-      background-image: url(/images/enemy.png);
+      background-image: url($image-uri + '/images/enemy.png');
     }
 
     &.boss {
-      background-image: url(/images/boss.png);
+      background-image: url($image-uri + '/images/boss.png');
     }
 
     &.health {
-      background-image: url(/images/health.png);
+      background-image: url($image-uri + '/images/health.png');
     }
 
     &.weapon {
-      background-image: url(/images/weapon.png);
+      background-image: url($image-uri + '/images/weapon.png');
     }
 
     &.teleport {
-      background-image: url(/images/teleport.png);
+      background-image: url($image-uri + '/images/teleport.png');
     }
 
     &.darkness {
