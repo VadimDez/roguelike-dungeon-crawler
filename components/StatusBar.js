@@ -22,7 +22,11 @@ class StatusBar extends React.Component {
 
     return (
       <div className="status-bar">
-        Health: {state.game.player.health }, Lvl: { state.game.player.level }, XP: { state.game.player.experience } / { state.game.player.maxExp } Weapon: { state.game.player.weapon.name }
+        <span>Health: {state.game.player.health }</span>
+        <span>Lvl: { state.game.player.level }</span>
+        <span>XP: { state.game.player.experience } / { state.game.player.maxExp }</span>
+        <span>Weapon: { state.game.player.weapon.name }</span>
+        <span>Attack: { state.game.player.weapon.damage + state.game.player.level }</span>
       </div>
     )
   }
