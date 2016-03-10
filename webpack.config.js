@@ -10,6 +10,10 @@ module.exports = {
     path: __dirname,
     filename: 'bundle.js'
   },
+  resolveUrlLoader: {
+    root: __dirname,
+    sourceMap: true
+  },
   module: {
     loaders: [
       {
@@ -21,14 +25,14 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        loaders: ["style", "css", "sass"]
-      },
-      {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: 'style!css'
+        loader: ['style', 'css']
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loaders: ["style", "css?sourceMap", 'resolve-url', 'sass?sourceMap']
       }
     ]
   }
