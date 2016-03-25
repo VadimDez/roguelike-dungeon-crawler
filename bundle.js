@@ -20219,10 +20219,7 @@
 	      objectToString.call(value) != objectTag || isHostObject(value)) {
 	    return false;
 	  }
-	  var proto = objectProto;
-	  if (typeof value.constructor == 'function') {
-	    proto = getPrototypeOf(value);
-	  }
+	  var proto = getPrototypeOf(value);
 	  if (proto === null) {
 	    return true;
 	  }
@@ -20627,7 +20624,7 @@
 	        x: 1,
 	        y: 1
 	      },
-	      map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1], [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1], [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+	      map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1], [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1], [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1], [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 	    };
 
 	    // set objects on map
@@ -20833,7 +20830,7 @@
 	        x: 1,
 	        y: 1
 	      },
-	      map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+	      map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1], [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 	    };
 
 	    // set objects on map
@@ -20897,7 +20894,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif; }\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0; }\n  .modal-container .modal {\n    margin-right: auto;\n    margin-left: auto;\n    background-color: #fff;\n    text-align: center;\n    padding: 10px;\n    width: 300px;\n    border: 1px solid #8b8b8b;\n    border-radius: 3px; }\n    .modal-container .modal h3 {\n      margin-top: 0; }\n\n.row {\n  height: 16px; }\n  .row div {\n    display: inline-block;\n    width: 16px;\n    height: 16px;\n    background-color: transparent; }\n    .row div.grass {\n      background-image: url(/images/grass.png); }\n    .row div.wall {\n      background-image: url(/images/ground.png); }\n    .row div.player {\n      background-image: url(/images/player.png); }\n    .row div.enemy {\n      background-image: url(/images/enemy.png); }\n    .row div.boss {\n      background-image: url(/images/boss.png); }\n    .row div.health {\n      background-image: url(/images/health.png); }\n    .row div.weapon {\n      background-image: url(/images/weapon.png); }\n    .row div.teleport {\n      background-image: url(/images/teleport.png); }\n    .row div.darkness {\n      background: #000; }\n\n.elements {\n  padding-bottom: 10px; }\n  .elements > div {\n    display: inline;\n    margin-right: 10px; }\n\n.status-bar {\n  color: white;\n  background-color: black; }\n", ""]);
+	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif; }\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0; }\n  .modal-container .modal {\n    margin-right: auto;\n    margin-left: auto;\n    background-color: #fff;\n    text-align: center;\n    padding: 10px;\n    width: 300px;\n    border: 1px solid #8b8b8b;\n    border-radius: 3px; }\n    .modal-container .modal h3 {\n      margin-top: 0; }\n\n.row {\n  height: 16px; }\n  .row div {\n    display: inline-block;\n    width: 16px;\n    height: 16px;\n    background-color: transparent; }\n    .row div.grass {\n      background-image: url(/images/grass.png); }\n    .row div.wall {\n      background-image: url(/images/ground.png); }\n    .row div.player {\n      background-image: url(/images/player.png); }\n    .row div.enemy {\n      background-image: url(/images/enemy.png); }\n    .row div.boss {\n      background-image: url(/images/boss.png); }\n    .row div.health {\n      background-image: url(/images/health.png); }\n    .row div.weapon {\n      background-image: url(/images/weapon.png); }\n    .row div.teleport {\n      background-image: url(/images/teleport.png); }\n    .row div.darkness {\n      background: #000; }\n\n.elements {\n  padding-bottom: 10px; }\n  .elements > div {\n    display: inline;\n    margin-right: 10px; }\n\n.status-bar {\n  color: white;\n  background-color: black; }\n  .status-bar > span {\n    margin-right: 15px; }\n", ""]);
 
 	// exports
 
@@ -21485,13 +21482,27 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this4 = this;
+
 	      var modal = undefined;
 	      var state = this.context.store.getState();
 
 	      if (state.modals.loseModal) {
-	        modal = _react2.default.createElement(_Modal2.default, { text: 'You lose. Try again.', onClick: this.closeModal('loseModal').bind(this) });
+	        modal = _react2.default.createElement(_Modal2.default, { text: 'You lose. Try again.',
+	          onClick: this.closeModal('loseModal').bind(this),
+	          restart: function restart() {
+	            _this4.closeModal('loseModal')();
+	            _this4.restart();
+	          }
+	        });
 	      } else if (state.modals.winModal) {
-	        modal = _react2.default.createElement(_Modal2.default, { text: 'You won!', onClick: this.closeModal('winModal').bind(this) });
+	        modal = _react2.default.createElement(_Modal2.default, { text: 'You won!',
+	          onClick: this.closeModal('winModal').bind(this),
+	          restart: function restart() {
+	            _this4.closeModal('winModal')();
+	            _this4.restart();
+	          }
+	        });
 	      }
 
 	      return _react2.default.createElement(
@@ -21632,16 +21643,38 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "status-bar" },
-	        "Health: ",
-	        state.game.player.health,
-	        ", Lvl: ",
-	        state.game.player.level,
-	        ", XP: ",
-	        state.game.player.experience,
-	        " / ",
-	        state.game.player.maxExp,
-	        " Weapon: ",
-	        state.game.player.weapon.name
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "Health: ",
+	          state.game.player.health
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "Lvl: ",
+	          state.game.player.level
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "XP: ",
+	          state.game.player.experience,
+	          " / ",
+	          state.game.player.maxExp
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "Weapon: ",
+	          state.game.player.weapon.name
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "Attack: ",
+	          state.game.player.weapon.damage + state.game.player.level
+	        )
 	      );
 	    }
 	  }]);
@@ -21892,6 +21925,11 @@
 	            "button",
 	            { onClick: this.props.onClick },
 	            "Ok"
+	          ),
+	          _react2.default.createElement(
+	            "button",
+	            { onClick: this.props.restart },
+	            "Restart"
 	          )
 	        )
 	      );
