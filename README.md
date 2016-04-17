@@ -6,3 +6,15 @@ React game
 - React
 - Redux
 - SCSS
+
+### Install
+
+```
+npm install
+```
+
+### Run dev
+
+```
+npm run serve
+```
