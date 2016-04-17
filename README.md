@@ -18,3 +18,7 @@ npm install
 ```
 npm run serve
 ```
+
+### Open in browser
+
+[http://localhost:9000](http://localhost:9000)
