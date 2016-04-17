@@ -1,6 +1,8 @@
 # Roguelike Dungeon Crawler Game
 
-React game
+Game build with [React](https://facebook.github.io/react/), part of FCC basejumps.
+
+[Demo page](http://vadimdez.github.io/roguelike-dungeon-crawler/)
 
 ### Uses
 - React
