@@ -8,6 +8,7 @@ Game build with [React](https://facebook.github.io/react/), part of FCC basejump
 - React
 - Redux
 - SCSS
+- Webpack
 
 ### Install
 
