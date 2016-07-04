@@ -27,4 +27,4 @@ npm run serve
 [http://localhost:9000](http://localhost:9000)
 
 ### License
-MIT © Vadym Yatsyuk
+MIT © [Vadym Yatsyuk](https://github.com/vadimdez)
