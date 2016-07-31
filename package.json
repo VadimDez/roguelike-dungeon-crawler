@@ -1,11 +1,12 @@
 {
   "name": "roguelike-dungeon-crawler",
-  "version": "1.0.0",
-  "description": "react game",
+  "version": "0.0.1",
+  "description": "Roguelike game built with react",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 9000"
+    "serve": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 9000",
+    "build": "./node_modules/webpack/bin/webpack.js"
   },
   "repository": {
     "type": "git",
