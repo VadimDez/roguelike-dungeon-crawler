@@ -2,38 +2,35 @@
  * Created by Vadym Yatsyuk on 23/02/16
  */
 
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
 class StatusBar extends React.Component {
   componentDidMount() {
-    const store = this.context.store
-
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate()
-    })
   }
 
   componentWillUnmount() {
-    this.unsubscribe()
   }
 
   render() {
-    const state = this.context.store.getState()
-
     return (
       <div className="status-bar">
-        <span>Health: {state.game.player.health }</span>
-        <span>Lvl: { state.game.player.level }</span>
-        <span>XP: { state.game.player.experience } / { state.game.player.maxExp }</span>
-        <span>Weapon: { state.game.player.weapon.name }</span>
-        <span>Attack: { state.game.player.weapon.damage + state.game.player.level }</span>
+        <span>Health: {this.props.player.health }</span>
+        <span>Lvl: { this.props.player.level }</span>
+        <span>XP: { this.props.player.experience } / { this.props.player.maxExp }</span>
+        <span>Weapon: { this.props.player.weapon.name }</span>
+        <span>Attack: { this.props.player.weapon.damage + this.props.player.level }</span>
       </div>
     )
   }
 }
 
-StatusBar.contextTypes = {
-  store: React.PropTypes.object
-}
+const mapStateToProps = (state) => {
+  return {
+    player: state.game.player
+  }
+};
 
-export default StatusBar
+const StatusBarConnected = connect(mapStateToProps)(StatusBar);
+
+export default StatusBarConnected
