@@ -2,17 +2,17 @@
  * Created by Vadym Yatsyuk on 23/02/16
  */
 
-import React from 'react'
-import Player from './Player'
-import Enemy from './../Entities/Enemy'
-import Weapon from './../Entities/Weapon'
-import Health from './../Entities/Health'
-import Teleport from './../Entities/Teleport'
+import React from 'react';
+import { connect } from 'react-redux';
+
+import Player from './Player';
+import Enemy from './../Entities/Enemy';
+import Weapon from './../Entities/Weapon';
+import Health from './../Entities/Health';
+import Teleport from './../Entities/Teleport';
 
 class Map extends React.Component {
   render() {
-    this.state = this.context.store.getState();
-
     return (
       <div>
         { this.renderMap() }
@@ -20,16 +20,38 @@ class Map extends React.Component {
     )
   }
 
-  componentDidMount() {
-    const store = this.context.store
+  /**
+   * Render row
+   * @param row
+   * @param y
+   * @returns {*}
+   */
+  renderColumn(row, y) {
+    return row.map((block, x) => {
 
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate()
+      // hide
+      if (
+        this.props.game.darkness
+        && (Math.abs(x - this.props.game.position.x) > 3
+        || Math.abs(y - this.props.game.position.y) > 3)
+      ) {
+        return <div key={`${x}-${y}`} className="darkness"></div>
+      }
+
+      if (this.props.game.position.x === x && this.props.game.position.y === y) {
+        return <Player key={`${x}-${y}`} />
+      }
+
+      if (block instanceof Enemy) {
+        return <div key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}></div>
+      }
+
+      if (block instanceof Weapon || block instanceof Health || block instanceof Teleport) {
+        return <div key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}></div>
+      }
+
+      return <div key={`${x}-${y}`} className={block ? 'wall' : 'grass'}></div>
     })
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe()
   }
 
   /**
@@ -37,44 +59,22 @@ class Map extends React.Component {
    * @returns {*}
    */
   renderMap() {
-    return this.state.game.map.map((row, y) => {
+    return this.props.game.map.map((row, y) => {
       return (
         <div className="row" key={y}>
-          {
-            row.map((block, x) => {
-
-              // hide
-              if (
-                this.state.game.darkness
-                && (Math.abs(x - this.state.game.position.x) > 3
-                || Math.abs(y - this.state.game.position.y) > 3)
-              ) {
-                return <div key={`${x}-${y}`} className="darkness"></div>
-              }
-
-              if (this.state.game.position.x === x && this.state.game.position.y === y) {
-                return <Player key={`${x}-${y}`} />
-              }
-
-              if (block instanceof Enemy) {
-                return <div key={`${x}-${y}`} className={block.isBoss ? 'boss' : 'enemy'}></div>
-              }
-
-              if (block instanceof Weapon || block instanceof Health || block instanceof Teleport) {
-                return <div key={`${x}-${y}`} className={block.constructor.name.toLowerCase()}></div>
-              }
-
-              return <div key={`${x}-${y}`} className={block ? 'wall' : 'grass'}></div>
-            })
-          }
+          { this.renderColumn(row, y) }
         </div>
       )
     })
   }
 }
 
-Map.contextTypes =  {
-  store: React.PropTypes.object
-}
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  };
+};
 
-export default Map
+const MacConnected = connect(mapStateToProps)(Map);
+
+export default MacConnected
