@@ -3,6 +3,8 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+
 import StatusBar from './StatusBar'
 import Map from './Map'
 import Health from './../Entities/Health'
@@ -14,46 +16,45 @@ import * as actionTypes from './../ActionTypes';
 
 class Game extends React.Component {
   constructor() {
-    super()
+    super();
 
-    this.actions()
+    this.actions();
   }
 
   actions() {
     window.addEventListener('keydown', e => {
       switch (e.which) {
         case 37:
-          this.moveLeft()
+          this.moveLeft();
           break;
         case 38:
-          this.moveUp()
+          this.moveUp();
           break;
         case 39:
-          this.moveRight()
+          this.moveRight();
           break;
         case 40:
-          this.moveDown()
+          this.moveDown();
           break;
       }
     })
   }
 
   moveUp() {
-    this.move(this.context.store.getState().game.position.x, this.context.store.getState().game.position.y - 1)
+    this.move(this.props.game.position.x, this.props.game.position.y - 1);
   }
   moveDown() {
-    this.move(this.context.store.getState().game.position.x, this.context.store.getState().game.position.y + 1)
+    this.move(this.props.game.position.x, this.props.game.position.y + 1);
   }
   moveLeft() {
-    this.move(this.context.store.getState().game.position.x - 1, this.context.store.getState().game.position.y)
+    this.move(this.props.game.position.x - 1, this.props.game.position.y);
   }
   moveRight() {
-    this.move(this.context.store.getState().game.position.x + 1, this.context.store.getState().game.position.y)
+    this.move(this.props.game.position.x + 1, this.props.game.position.y);
   }
 
   move(x, y) {
-    const state = this.context.store.getState()
-    const block = state.game.map[y][x]
+    const block = this.props.game.map[y][x];
 
     if (block === 1) {
       return;
@@ -61,161 +62,106 @@ class Game extends React.Component {
 
     // health
     if (block instanceof Health) {
-      this.clearBlock(x, y)
-      this.updateHealth(state.game.player.health + block.value)
+      this.props.clearBlock(x, y);
+      this.props.updateHealth(this.props.game.player.health + block.value);
     }
 
     // weapon
     if (block instanceof Weapon) {
-      this.clearBlock(x, y)
+      this.props.clearBlock(x, y);
 
-      this.context.store.dispatch({
-        type: actionTypes.UPDATE_PLAYER_WEAPON,
-        weapon: block
-      })
+      this.props.updateWeapon(block);
     }
 
     // enemy
     if (block instanceof Enemy) {
-      block.health -= (state.game.player.weapon.damage + state.game.player.level) * Math.floor(Math.random() + 2)
+      block.health -= (this.props.game.player.weapon.damage + this.props.game.player.level) * Math.floor(Math.random() + 2);
 
       if (block.health <= 0) {
-        this.clearBlock(x, y)
-        let xp = state.game.player.experience + block.level * 5
+        this.props.clearBlock(x, y);
+        let xp = this.props.game.player.experience + block.level * 5;
 
         // increase level
-        if (state.game.player.maxExp < xp) {
-          xp -= state.game.player.maxExp
+        if (this.props.game.player.maxExp < xp) {
+          xp -= this.props.game.player.maxExp;
 
-          this.context.store.dispatch({
-            type: actionTypes.UPDATE_PLAYER_LEVEL,
-            level: state.game.player.level + 1
-          })
+          this.props.updateLVL(this.props.game.player.level + 1);
 
-          this.context.store.dispatch({
-            type: actionTypes.UPDATE_PLAYER_MAX_EXPERIENCE,
-            maxExp: state.game.player.maxExp * 2
-          })
+          this.props.updateMaxXP(this.props.game.player.maxExp * 2);
+
         }
 
-        this.context.store.dispatch({
-          type: actionTypes.UPDATE_PLAYER_EXPERIENCE,
-          experience: xp
-        })
+        this.props.updateXP(xp);
 
         if (block.isBoss) {
-          this.showModal('winModal')
+          this.showModal('winModal');
         }
       } else {
-        let health = state.game.player.health - block.attack()
+        let health = this.props.game.player.health - block.attack();
 
         if (health <= 0) {
-          this.restart()
-          this.showModal('loseModal')
-          return
+          this.restart();
+          this.showModal('loseModal');
+          return;
         }
 
-        this.updateHealth(health)
+        this.props.updateHealth(health);
 
-        this.context.store.dispatch({
-          type: actionTypes.UPDATE_MAP_BLOCK,
-          block: block,
-          position: {
-            x,
-            y
-          }
-        })
+        this.props.updateMapBlock(block, x, y);
 
-        return
+        this.props.updateBlock(block, x, y);
+
+        return;
       }
     }
 
     if (block instanceof Teleport) {
-      this.context.store.dispatch({
-        type: actionTypes.CHANGE_LEVEL,
-        map: block.map
-      })
-      return
+      this.props.changeLevel(block.map);
+      return;
     }
 
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_PLAYER_POSITION,
-      position: {
-        x,
-        y
-      }
-    })
-  }
-
-  updateHealth(health) {
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_PLAYER_HEALTH,
-      health
-    })
-  }
-
-  clearBlock(x, y) {
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_MAP_CLEAR,
-      position: {
-        x,
-        y
-      }
-    })
+    this.props.updatePlayerPosition(x, y);
   }
 
   restart() {
-    this.updateHealth(100);
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_MAP_RESET
-    })
+    this.props.updateHealth(100);
+    this.props.restart();
   }
 
   closeModal(modalType) {
     return () => {
-      this.updateModal(modalType, false)
-    }
+      this.props.updateModal(modalType, false)
+    };
   }
 
   showModal(modalName) {
-    this.updateModal(modalName, true)
-  }
-
-  updateModal(name, value) {
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_MODAL,
-      modal: name,
-      value: value
-    });
-    this.forceUpdate();
+    this.props.updateModal(modalName, true);
   }
 
   toggleDarkness() {
-    this.context.store.dispatch({
-      type: actionTypes.UPDATE_DARKNESS,
-      value: !this.context.store.getState().game.darkness
-    });
+    this.props.toggleDarkness(!this.props.game.darkness);
   }
 
   render() {
     let modal;
-    const state = this.context.store.getState();
 
-    if (state.modals.loseModal) {
-      modal = <Modal text="You lose. Try again."
-                     onClick={this.closeModal('loseModal').bind(this)}
-                     restart={() => {
-                      this.closeModal('loseModal')()
-                      this.restart()
-                     }}
+    if (this.props.modals.loseModal) {
+      modal = <Modal
+        text="You lose. Try again."
+        onClick={this.closeModal('loseModal').bind(this)}
+        restart={() => {
+          this.closeModal('loseModal')();
+          this.restart();
+        }}
       />;
-    } else if (state.modals.winModal) {
-      modal = <Modal text="You won!"
-                     onClick={this.closeModal('winModal').bind(this)}
-                     restart={() => {
-                      this.closeModal('winModal')()
-                      this.restart()
-                     }}
+    } else if (this.props.modals.winModal) {
+      modal = <Modal
+        text="You won!"
+        onClick={this.closeModal('winModal').bind(this)}
+        restart={() => {
+          this.closeModal('winModal')();
+          this.restart();
+        }}
       />;
     }
 
@@ -256,8 +202,114 @@ class Game extends React.Component {
   }
 }
 
-Game.contextTypes = {
-  store: React.PropTypes.object
-}
+const mapStateToProps = (state) => {
+  return {
+    game: state.game,
+    modals: state.modals
+  };
+};
 
-export default Game
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateModal: (name, value) => {
+      dispatch({
+        type: actionTypes.UPDATE_MODAL,
+        modal: name,
+        value: value
+      });
+    },
+    toggleDarkness: (value) => {
+      dispatch({
+        type: actionTypes.UPDATE_DARKNESS,
+        value
+      });
+    },
+    updateWeapon: (weapon) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_WEAPON,
+        weapon
+      });
+    },
+    updateLVL: (level) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_LEVEL,
+        level
+      });
+    },
+    updateXP: (experience) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_EXPERIENCE,
+        experience
+      });
+    },
+    updateMaxXP: (maxExp) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_MAX_EXPERIENCE,
+        maxExp
+      });
+    },
+    updateMapBlock: (block, x, y) => {
+      dispatch({
+        type: actionTypes.UPDATE_MAP_BLOCK,
+        block,
+        position: {
+          x,
+          y
+        }
+      });
+    },
+    updatePlayerPosition: (x, y) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_POSITION,
+        position: {
+          x,
+          y
+        }
+      });
+    },
+    changeLevel: (map) => {
+      dispatch({
+        type: actionTypes.CHANGE_LEVEL,
+        map
+      })
+    },
+    updateHealth: (health) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_HEALTH,
+        health
+      });
+    },
+    updateBlock: (block, x, y) => {
+      dispatch({
+        type: actionTypes.UPDATE_MAP_BLOCK,
+        block: block,
+        position: {
+          x,
+          y
+        }
+      });
+    },
+    clearBlock: (x, y) => {
+      dispatch({
+        type: actionTypes.UPDATE_MAP_CLEAR,
+        position: {
+          x,
+          y
+        }
+      });
+    },
+    restart: () => {
+      dispatch({
+        type: actionTypes.UPDATE_MAP_RESET
+      });
+    }
+  }
+
+};
+
+const GameConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);
+
+export default GameConnected;
