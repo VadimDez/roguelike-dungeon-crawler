@@ -5,7 +5,11 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './index.js',
+  entry: [
+    'webpack-dev-server/client?http://0.0.0.0:9000',
+    'webpack/hot/only-dev-server',
+    './index.js'
+  ],
   output: {
     path: __dirname,
     filename: 'bundle.js'
@@ -18,11 +22,11 @@ module.exports = {
     loaders: [
       {
         test: /.js$/,
-        loader: 'babel-loader',
+        loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react'],
         exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
-        }
+        // query: {
+        //   presets: ['es2015', 'react']
+        // }
       },
       {
         test: /\.css$/,
@@ -32,8 +36,11 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loaders: ["style", "css", 'sass?sourceMap']
+        loaders: ['react-hot', "style", "css", 'sass?sourceMap']
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
