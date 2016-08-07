@@ -307,9 +307,7 @@ const mapDispatchToProps = (dispatch) => {
 
 };
 
-const GameConnected = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Game);
-
-export default GameConnected;

@@ -12,7 +12,7 @@ import Health from './Entities/Health'
 import Teleport from './Entities/Teleport'
 import {getRandomEmptyPointOnMap} from './utils'
 
-let dataMap = reset()
+let dataMap = reset();
 const player = {
   health: 100,
   weapon: new Weapon('Hands', 5),
@@ -20,6 +20,7 @@ const player = {
   maxExp: 10,
   level: 0
 };
+
 const initialState = {
   map: dataMap.map,
   position: dataMap.startPosition,
@@ -32,15 +33,16 @@ const game = (state = initialState, action) => {
   if (action.type === actionTypes.UPDATE_PLAYER_POSITION) {
     return Object.assign({}, state, {
       position: action.position
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_MAP_CLEAR) {
-    let map = state.map.slice(0)
-    map[action.position.y][action.position.x] = 0
+    let map = state.map.slice(0);
+    map[action.position.y][action.position.x] = 0;
+
     return Object.assign({}, state, {
       map: map
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_PLAYER_HEALTH) {
@@ -48,7 +50,7 @@ const game = (state = initialState, action) => {
       player: Object.assign({}, state.player, {
         health: action.health
       })
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_PLAYER_WEAPON) {
@@ -64,7 +66,7 @@ const game = (state = initialState, action) => {
       player: Object.assign({}, state.player, {
         experience: action.experience
       })
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_PLAYER_LEVEL) {
@@ -72,7 +74,7 @@ const game = (state = initialState, action) => {
       player: Object.assign({}, state.player, {
         level: action.level
       })
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_PLAYER_MAX_EXPERIENCE) {
@@ -80,25 +82,26 @@ const game = (state = initialState, action) => {
       player: Object.assign({}, state.player, {
         maxExp: action.maxExp
       })
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_MAP_BLOCK) {
     let map = state.map.slice(0);
-    map[action.position.y][action.position.x] = action.block
+    map[action.position.y][action.position.x] = action.block;
+
     return Object.assign({}, state, {
       map: map
-    })
+    });
   }
 
   if (action.type === actionTypes.UPDATE_MAP_RESET) {
-    return setMap(state, reset())
+    return setMap(state, reset());
   }
 
   if (action.type === actionTypes.CHANGE_LEVEL) {
     switch (action.map) {
       case 'map2':
-        return setMap(state, map2()())
+        return setMap(state, map2()());
     }
   }
 
@@ -109,13 +112,13 @@ const game = (state = initialState, action) => {
   }
 
   return state
-}
+};
 
 function setMap(state, data) {
   return Object.assign({}, state, {
     map: data.map,
     position: data.startPosition
-  })
+  });
 }
 
 /**
@@ -123,20 +126,20 @@ function setMap(state, data) {
  * @returns {Object}
  */
 function reset() {
-  return map1()()
+  return map1()();
 }
 
 const modals = (state = {winModal: false, loseModal: false}, action) => {
   if (action.type === actionTypes.UPDATE_MODAL) {
     return Object.assign({}, state, {
       [action.modal]: action.value
-    })
+    });
   }
 
-  return state
-}
+  return state;
+};
 
 export default createStore(combineReducers({
   game,
   modals
-}))
+}));

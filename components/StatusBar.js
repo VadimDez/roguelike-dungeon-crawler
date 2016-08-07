@@ -21,7 +21,7 @@ class StatusBar extends React.Component {
         <span>Weapon: { this.props.player.weapon.name }</span>
         <span>Attack: { this.props.player.weapon.damage + this.props.player.level }</span>
       </div>
-    )
+    );
   }
 }
 
@@ -31,6 +31,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-const StatusBarConnected = connect(mapStateToProps)(StatusBar);
-
-export default StatusBarConnected
+export default connect(mapStateToProps)(StatusBar);

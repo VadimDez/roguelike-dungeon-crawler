@@ -4,15 +4,15 @@
 import React from 'react'
 
 class Player extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     return (
       <div className="player"></div>
-    )
+    );
   }
-}
-
-Player.contextTypes = {
-  store: React.PropTypes.object
 }
 
 export default Player

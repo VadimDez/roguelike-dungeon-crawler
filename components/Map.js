@@ -75,6 +75,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const MacConnected = connect(mapStateToProps)(Map);
-
-export default MacConnected
+export default connect(mapStateToProps)(Map);
