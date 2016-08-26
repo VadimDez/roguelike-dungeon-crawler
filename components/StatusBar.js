@@ -14,12 +14,17 @@ class StatusBar extends React.Component {
 
   render() {
     return (
-      <div className="status-bar">
-        <span>Health: {this.props.player.health }</span>
-        <span>Lvl: { this.props.player.level }</span>
-        <span>XP: { this.props.player.experience } / { this.props.player.maxExp }</span>
-        <span>Weapon: { this.props.player.weapon.name }</span>
-        <span>Attack: { this.props.player.weapon.damage + this.props.player.level }</span>
+      <div>
+        <div className="status-bar">
+          <div className="health-container">
+            <div>Health</div>
+            <div className="health"><div style={{width: `${ this.props.player.health }%`}}></div></div>
+          </div>
+          <span>Lvl: { this.props.player.level }</span>
+          <span>XP: { this.props.player.experience } / { this.props.player.maxExp }</span>
+          <span>Weapon: { this.props.player.weapon.name }</span>
+          <span>Attack: { this.props.player.weapon.damage + this.props.player.level }</span>
+        </div>
       </div>
     );
   }

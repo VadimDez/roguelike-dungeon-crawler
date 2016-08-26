@@ -5,3 +5,23 @@
     margin-right: 15px;
   }
 }
+
+$health-height: 20px;
+.health-container {
+  display: inline-block;
+  background-color: #000000;
+  color: #fff;
+  padding: 5px;
+
+  .health {
+    width: 200px;
+    height: $health-height;
+    background-color: #000;
+
+    display: inline-block;
+    > div {
+      height: $health-height;
+      background-color: #ff3047;
+    }
+  }
+}
