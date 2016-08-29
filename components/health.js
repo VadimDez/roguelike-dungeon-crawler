@@ -7,9 +7,12 @@ import { connect } from 'react-redux';
 class HealthComponent extends React.Component {
   render() {
     return (
-      <div className="health-container">
+      <div className="bar-container health">
         <div>Health</div>
-        <div className="health"><div style={{width: `${ this.props.health }%`}}></div></div>
+        <div className="bar-indicator-container">
+          <div className="bar-indicator">{ this.props.health }</div>
+          <div className="bar" style={{width: `${ this.props.health <= 100 ? this.props.health : 100 }%`}}></div>
+        </div>
       </div>
     )
   }

@@ -1,27 +1,56 @@
 .status-bar {
   color: white;
   background-color: black;
-  > span {
+  > * {
+    display: inline-block;
+    float: left;
     margin-right: 15px;
+    padding: 5px;
+  }
+
+  &:after {
+    content: ' ';
+    display: block;
+    clear: both;
   }
 }
 
-$health-height: 20px;
-.health-container {
-  display: inline-block;
+$indicator-height: 20px;
+
+.indicator {
+  height: $indicator-height;
+}
+
+.bar-container {
   background-color: #000000;
   color: #fff;
   padding: 5px;
 
-  .health {
+  .bar-indicator-container {
     width: 200px;
-    height: $health-height;
-    background-color: #000;
-
+    height: $indicator-height;
     display: inline-block;
-    > div {
-      height: $health-height;
-      background-color: #ff3047;
+
+    .bar-indicator {
+      text-align: center;
+      float: left;
+      width: 100%;
     }
+    .bar-indicator, .bar {
+      height: $indicator-height;
+    }
+  }
+}
+
+.bar-container.experience .bar-indicator-container {
+  background-color: #0a0c34;
+  > .bar {
+    background-color: #4756ff;
+  }
+}
+.bar-container.health .bar-indicator-container {
+  background-color: #000;
+  > .bar {
+    background-color: #ff3047;
   }
 }
