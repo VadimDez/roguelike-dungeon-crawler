@@ -5,6 +5,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Health from './health';
+
 class StatusBar extends React.Component {
   componentDidMount() {
   }
@@ -16,10 +18,7 @@ class StatusBar extends React.Component {
     return (
       <div>
         <div className="status-bar">
-          <div className="health-container">
-            <div>Health</div>
-            <div className="health"><div style={{width: `${ this.props.player.health }%`}}></div></div>
-          </div>
+          <Health/>
           <span>Lvl: { this.props.player.level }</span>
           <span>XP: { this.props.player.experience } / { this.props.player.maxExp }</span>
           <span>Weapon: { this.props.player.weapon.name }</span>
