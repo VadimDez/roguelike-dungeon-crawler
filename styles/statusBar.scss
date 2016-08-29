@@ -1,7 +1,56 @@
 .status-bar {
   color: white;
   background-color: black;
-  > span {
+  > * {
+    display: inline-block;
+    float: left;
     margin-right: 15px;
+    padding: 5px;
+  }
+
+  &:after {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
+}
+
+$indicator-height: 20px;
+
+.indicator {
+  height: $indicator-height;
+}
+
+.bar-container {
+  background-color: #000000;
+  color: #fff;
+  padding: 5px;
+
+  .bar-indicator-container {
+    width: 200px;
+    height: $indicator-height;
+    display: inline-block;
+
+    .bar-indicator {
+      text-align: center;
+      float: left;
+      width: 100%;
+    }
+    .bar-indicator, .bar {
+      height: $indicator-height;
+    }
+  }
+}
+
+.bar-container.experience .bar-indicator-container {
+  background-color: #0a0c34;
+  > .bar {
+    background-color: #4756ff;
+  }
+}
+.bar-container.health .bar-indicator-container {
+  background-color: #000;
+  > .bar {
+    background-color: #ff3047;
   }
 }
