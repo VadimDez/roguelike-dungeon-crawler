@@ -154,6 +154,11 @@ class Game extends React.Component {
     this.props.toggleDarkness(!this.props.game.darkness);
   }
 
+  modalRestartAction() {
+    this.closeModal('winModal')();
+    this.restart();
+  }
+
   render() {
     let modal;
 
@@ -161,19 +166,13 @@ class Game extends React.Component {
       modal = <Modal
         text="You lose. Try again."
         onClick={this.closeModal('loseModal').bind(this)}
-        restart={() => {
-          this.closeModal('loseModal')();
-          this.restart();
-        }}
+        restart={ this.modalRestartAction.bind(this) }
       />;
     } else if (this.props.modals.winModal) {
       modal = <Modal
         text="You won!"
-        onClick={this.closeModal('winModal').bind(this)}
-        restart={() => {
-          this.closeModal('winModal')();
-          this.restart();
-        }}
+        onClick={ this.closeModal('winModal').bind(this) }
+        restart={ this.modalRestartAction.bind(this) }
       />;
     }
 
