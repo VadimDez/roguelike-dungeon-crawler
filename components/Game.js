@@ -27,13 +27,25 @@ class Game extends React.Component {
         case 37:
           this.moveLeft();
           break;
+        case 65:
+          this.moveLeft();
+          break;
         case 38:
+          this.moveUp();
+          break;
+        case 87:
           this.moveUp();
           break;
         case 39:
           this.moveRight();
           break;
+        case 68:
+          this.moveRight();
+          break;
         case 40:
+          this.moveDown();
+          break;
+        case 83:
           this.moveDown();
           break;
       }
