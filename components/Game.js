@@ -13,6 +13,7 @@ import Enemy from './../Entities/Enemy'
 import Teleport from './../Entities/Teleport'
 import Modal from './Modal'
 import * as actionTypes from './../ActionTypes';
+import * as playerDirections from './../PlayerDirections';
 
 class Game extends React.Component {
   constructor() {
@@ -54,15 +55,19 @@ class Game extends React.Component {
 
   moveUp() {
     this.move(this.props.game.position.x, this.props.game.position.y - 1);
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_UP);
   }
   moveDown() {
     this.move(this.props.game.position.x, this.props.game.position.y + 1);
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_DOWN);
   }
   moveLeft() {
     this.move(this.props.game.position.x - 1, this.props.game.position.y);
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_LEFT);
   }
   moveRight() {
     this.move(this.props.game.position.x + 1, this.props.game.position.y);
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_RIGHT);
   }
 
   move(x, y) {
@@ -312,6 +317,12 @@ const mapDispatchToProps = (dispatch) => {
     restart: () => {
       dispatch({
         type: actionTypes.UPDATE_MAP_RESET
+      });
+    },
+    updatePlayerDirection: (direction) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_DIRECTION,
+        direction
       });
     }
   }

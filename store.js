@@ -114,6 +114,14 @@ const game = (state = initialState, action) => {
     });
   }
 
+  if (action.type === actionTypes.UPDATE_PLAYER_DIRECTION) {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, {
+        direction: action.direction
+      })
+    });
+  }
+
   return state
 };
 
