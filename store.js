@@ -3,14 +3,16 @@
  */
 
 import * as actionTypes from './ActionTypes';
-import {createStore, combineReducers} from 'redux'
-import map1 from './maps/map1'
-import map2 from './maps/map2'
-import Enemy from './Entities/Enemy'
-import Weapon from './Entities/Weapon'
-import Health from './Entities/Health'
-import Teleport from './Entities/Teleport'
-import {getRandomEmptyPointOnMap} from './utils'
+import {createStore, combineReducers} from 'redux';
+import map1 from './maps/map1';
+import map2 from './maps/map2';
+import Enemy from './Entities/Enemy';
+import Weapon from './Entities/Weapon';
+import Health from './Entities/Health';
+import Teleport from './Entities/Teleport';
+import {getRandomEmptyPointOnMap} from './utils';
+
+import * as PlayerDirections from './PlayerDirections';
 
 let dataMap = reset();
 const player = {
@@ -18,7 +20,8 @@ const player = {
   weapon: new Weapon('Hands', 5),
   experience: 0,
   maxExp: 10,
-  level: 0
+  level: 0,
+  direction: PlayerDirections.PLAYER_DIRECTION_DOWN
 };
 
 const initialState = {

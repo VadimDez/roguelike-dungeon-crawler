@@ -21,8 +21,17 @@ body {
       background-image: url(/images/ground.png);
     }
 
-    &.player {
-      background: url(/images/nyan.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
+    &.player.up {
+      background: url(/images/player-up.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
+    }
+    &.player.down {
+      background: url(/images/player-down.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
+    }
+    &.player.left {
+      background: url(/images/player-left.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
+    }
+    &.player.right {
+      background: url(/images/player-right.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
     }
 
     &.enemy {
