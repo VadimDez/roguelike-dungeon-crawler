@@ -22,7 +22,7 @@ body {
     }
 
     &.player {
-      background-image: url(/images/player.png);
+      background: url(/images/nyan.png) 0 0 / 100% 83% no-repeat, url(/images/grass.png);
     }
 
     &.enemy {
