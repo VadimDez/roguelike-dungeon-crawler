@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "34a54dfc3387d06f5e1d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fe0d3a08d75f129d76e6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -595,15 +595,16 @@
 	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var url = __webpack_require__(2);
 	var SockJS = __webpack_require__(8);
 	var stripAnsi = __webpack_require__(72);
-	var scriptElements = document.getElementsByTagName("script");
-	var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
 
 	// If this bundle is inlined, use the resource query to get the correct url.
 	// Else, get the url from the <script> this file was called with.
-	var urlParts = url.parse( true ?
-		__resourceQuery.substr(1) :
-		(scriptHost ? scriptHost : "/"), false, true
-	);
+	var urlParts;
+	if (true) {
+		urlParts = url.parse(__resourceQuery.substr(1));
+	} else {
+		var scriptElements = document.getElementsByTagName("script");
+		urlParts = url.parse(scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, ""))
+	}
 
 	var sock = null;
 	var hot = false;
@@ -8251,13 +8252,13 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	__webpack_require__(281);
+	__webpack_require__(282);
 
-	var _Game = __webpack_require__(285);
+	var _Game = __webpack_require__(286);
 
 	var _Game2 = _interopRequireDefault(_Game);
 
-	var _reactRedux = __webpack_require__(286);
+	var _reactRedux = __webpack_require__(287);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29916,6 +29917,10 @@
 
 	var _utils = __webpack_require__(279);
 
+	var _PlayerDirections = __webpack_require__(281);
+
+	var PlayerDirections = _interopRequireWildcard(_PlayerDirections);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -29930,7 +29935,8 @@
 	  weapon: new _Weapon2.default('Hands', 5),
 	  experience: 0,
 	  maxExp: 10,
-	  level: 0
+	  level: 0,
+	  direction: PlayerDirections.PLAYER_DIRECTION_DOWN
 	};
 
 	var initialState = {
@@ -30026,6 +30032,14 @@
 	    });
 	  }
 
+	  if (action.type === actionTypes.UPDATE_PLAYER_DIRECTION) {
+	    return Object.assign({}, state, {
+	      player: Object.assign({}, state.player, {
+	        direction: action.direction
+	      })
+	    });
+	  }
+
 	  return state;
 	};
 
@@ -30089,6 +30103,7 @@
 	var CHANGE_LEVEL = exports.CHANGE_LEVEL = 'CHANGE_LEVEL';
 	var UPDATE_MODAL = exports.UPDATE_MODAL = 'UPDATE_MODAL';
 	var UPDATE_DARKNESS = exports.UPDATE_DARKNESS = 'UPDATE_DARKNESS';
+	var UPDATE_PLAYER_DIRECTION = exports.UPDATE_PLAYER_DIRECTION = 'UPDATE_PLAYER_DIRECTION';
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ActionTypes.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -31328,20 +31343,42 @@
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(155); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by Vadym Yatsyuk on 31/08/16
+	 */
+	var PLAYER_DIRECTION_UP = exports.PLAYER_DIRECTION_UP = 'up';
+	var PLAYER_DIRECTION_DOWN = exports.PLAYER_DIRECTION_DOWN = 'down';
+	var PLAYER_DIRECTION_LEFT = exports.PLAYER_DIRECTION_LEFT = 'left';
+	var PLAYER_DIRECTION_RIGHT = exports.PLAYER_DIRECTION_RIGHT = 'right';
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PlayerDirections.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(282);
+	var content = __webpack_require__(283);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(284)(content, {});
+	var update = __webpack_require__(285)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(282, function() {
-				var newContent = __webpack_require__(282);
+			module.hot.accept(283, function() {
+				var newContent = __webpack_require__(283);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -31351,21 +31388,21 @@
 	}
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(283)();
+	exports = module.exports = __webpack_require__(284)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n}\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0;\n}\n\n.modal-container .modal {\n  margin-right: auto;\n  margin-left: auto;\n  background-color: #fff;\n  text-align: center;\n  padding: 10px;\n  width: 300px;\n  border: 1px solid #8b8b8b;\n  border-radius: 3px;\n}\n\n.modal-container .modal h3 {\n  margin-top: 0;\n}\n\n.row {\n  height: 16px;\n}\n\n.row div {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: transparent;\n}\n\n.row div.grass {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.wall {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/ground.png\");\n}\n\n.row div.player {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player.png\");\n}\n\n.row div.enemy {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/enemy.png\");\n}\n\n.row div.boss {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/boss.png\");\n}\n\n.row div.health {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/health.png\");\n}\n\n.row div.weapon {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/weapon.png\");\n}\n\n.row div.teleport {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/teleport.png\");\n}\n\n.row div.darkness {\n  background: #000;\n}\n\n.elements {\n  padding-bottom: 10px;\n}\n\n.elements > div {\n  display: inline;\n  margin-right: 10px;\n}\n\n.status-bar {\n  color: white;\n  background-color: black;\n}\n\n.status-bar > * {\n  display: inline-block;\n  float: left;\n  margin-right: 15px;\n  padding: 5px;\n}\n\n.status-bar:after {\n  content: ' ';\n  display: block;\n  clear: both;\n}\n\n.indicator {\n  height: 20px;\n}\n\n.bar-container {\n  background-color: #000000;\n  color: #fff;\n  padding: 5px;\n}\n\n.bar-container .bar-indicator-container {\n  width: 200px;\n  height: 20px;\n  display: inline-block;\n}\n\n.bar-container .bar-indicator-container .bar-indicator {\n  text-align: center;\n  float: left;\n  width: 100%;\n}\n\n.bar-container .bar-indicator-container .bar-indicator,\n.bar-container .bar-indicator-container .bar {\n  height: 20px;\n}\n\n.bar-container.experience .bar-indicator-container {\n  background-color: #0a0c34;\n}\n\n.bar-container.experience .bar-indicator-container > .bar {\n  background-color: #4756ff;\n}\n\n.bar-container.health .bar-indicator-container {\n  background-color: #000;\n}\n\n.bar-container.health .bar-indicator-container > .bar {\n  background-color: #ff3047;\n}\n\n", ""]);
+	exports.push([module.id, "body {\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n}\n\n.modal-container {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  right: 0;\n}\n\n.modal-container .modal {\n  margin-right: auto;\n  margin-left: auto;\n  background-color: #fff;\n  text-align: center;\n  padding: 10px;\n  width: 300px;\n  border: 1px solid #8b8b8b;\n  border-radius: 3px;\n}\n\n.modal-container .modal h3 {\n  margin-top: 0;\n}\n\n.row {\n  height: 16px;\n}\n\n.row div {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: transparent;\n}\n\n.row div.grass {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.wall {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/ground.png\");\n}\n\n.row div.player.up {\n  background: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player-up.png\") 0 0/100% 83% no-repeat, url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.player.down {\n  background: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player-down.png\") 0 0/100% 83% no-repeat, url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.player.left {\n  background: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player-left.png\") 0 0/100% 83% no-repeat, url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.player.right {\n  background: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/player-right.png\") 0 0/100% 83% no-repeat, url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/grass.png\");\n}\n\n.row div.enemy {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/enemy.png\");\n}\n\n.row div.boss {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/boss.png\");\n}\n\n.row div.health {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/health.png\");\n}\n\n.row div.weapon {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/weapon.png\");\n}\n\n.row div.teleport {\n  background-image: url(\"http://vadimdez.github.io/roguelike-dungeon-crawler/images/teleport.png\");\n}\n\n.row div.darkness {\n  background: #000;\n}\n\n.elements {\n  padding-bottom: 10px;\n}\n\n.elements > div {\n  display: inline;\n  margin-right: 10px;\n}\n\n.status-bar {\n  color: white;\n  background-color: black;\n}\n\n.status-bar > * {\n  display: inline-block;\n  float: left;\n  margin-right: 15px;\n  padding: 5px;\n}\n\n.status-bar:after {\n  content: ' ';\n  display: block;\n  clear: both;\n}\n\n.indicator {\n  height: 20px;\n}\n\n.bar-container {\n  background-color: #000000;\n  color: #fff;\n  padding: 5px;\n}\n\n.bar-container .bar-indicator-container {\n  width: 200px;\n  height: 20px;\n  display: inline-block;\n}\n\n.bar-container .bar-indicator-container .bar-indicator {\n  text-align: center;\n  float: left;\n  width: 100%;\n}\n\n.bar-container .bar-indicator-container .bar-indicator,\n.bar-container .bar-indicator-container .bar {\n  height: 20px;\n}\n\n.bar-container.experience .bar-indicator-container {\n  background-color: #0a0c34;\n}\n\n.bar-container.experience .bar-indicator-container > .bar {\n  background-color: #4756ff;\n}\n\n.bar-container.health .bar-indicator-container {\n  background-color: #000;\n}\n\n.bar-container.health .bar-indicator-container > .bar {\n  background-color: #ff3047;\n}\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports) {
 
 	/*
@@ -31421,7 +31458,7 @@
 
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31673,7 +31710,7 @@
 
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(155); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -31690,9 +31727,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(286);
+	var _reactRedux = __webpack_require__(287);
 
-	var _StatusBar = __webpack_require__(295);
+	var _StatusBar = __webpack_require__(296);
 
 	var _StatusBar2 = _interopRequireDefault(_StatusBar);
 
@@ -31723,6 +31760,10 @@
 	var _ActionTypes = __webpack_require__(258);
 
 	var actionTypes = _interopRequireWildcard(_ActionTypes);
+
+	var _PlayerDirections = __webpack_require__(281);
+
+	var playerDirections = _interopRequireWildcard(_PlayerDirections);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -31758,13 +31799,25 @@
 	          case 37:
 	            _this2.moveLeft();
 	            break;
+	          case 65:
+	            _this2.moveLeft();
+	            break;
 	          case 38:
+	            _this2.moveUp();
+	            break;
+	          case 87:
 	            _this2.moveUp();
 	            break;
 	          case 39:
 	            _this2.moveRight();
 	            break;
+	          case 68:
+	            _this2.moveRight();
+	            break;
 	          case 40:
+	            _this2.moveDown();
+	            break;
+	          case 83:
 	            _this2.moveDown();
 	            break;
 	        }
@@ -31773,21 +31826,25 @@
 	  }, {
 	    key: 'moveUp',
 	    value: function moveUp() {
+	      this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_UP);
 	      this.move(this.props.game.position.x, this.props.game.position.y - 1);
 	    }
 	  }, {
 	    key: 'moveDown',
 	    value: function moveDown() {
+	      this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_DOWN);
 	      this.move(this.props.game.position.x, this.props.game.position.y + 1);
 	    }
 	  }, {
 	    key: 'moveLeft',
 	    value: function moveLeft() {
+	      this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_LEFT);
 	      this.move(this.props.game.position.x - 1, this.props.game.position.y);
 	    }
 	  }, {
 	    key: 'moveRight',
 	    value: function moveRight() {
+	      this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_RIGHT);
 	      this.move(this.props.game.position.x + 1, this.props.game.position.y);
 	    }
 	  }, {
@@ -31886,29 +31943,27 @@
 	      this.props.toggleDarkness(!this.props.game.darkness);
 	    }
 	  }, {
+	    key: 'modalRestartAction',
+	    value: function modalRestartAction() {
+	      this.closeModal('winModal')();
+	      this.restart();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
-
 	      var modal = void 0;
 
 	      if (this.props.modals.loseModal) {
 	        modal = _react2.default.createElement(_Modal2.default, {
 	          text: 'You lose. Try again.',
 	          onClick: this.closeModal('loseModal').bind(this),
-	          restart: function restart() {
-	            _this4.closeModal('loseModal')();
-	            _this4.restart();
-	          }
+	          restart: this.modalRestartAction.bind(this)
 	        });
 	      } else if (this.props.modals.winModal) {
 	        modal = _react2.default.createElement(_Modal2.default, {
 	          text: 'You won!',
 	          onClick: this.closeModal('winModal').bind(this),
-	          restart: function restart() {
-	            _this4.closeModal('winModal')();
-	            _this4.restart();
-	          }
+	          restart: this.modalRestartAction.bind(this)
 	        });
 	      }
 
@@ -32085,6 +32140,12 @@
 	      dispatch({
 	        type: actionTypes.UPDATE_MAP_RESET
 	      });
+	    },
+	    updatePlayerDirection: function updatePlayerDirection(direction) {
+	      dispatch({
+	        type: actionTypes.UPDATE_PLAYER_DIRECTION,
+	        direction: direction
+	      });
 	    }
 	  };
 	};
@@ -32095,7 +32156,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32103,11 +32164,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(287);
+	var _Provider = __webpack_require__(288);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(290);
+	var _connect = __webpack_require__(291);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -32117,7 +32178,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32127,11 +32188,11 @@
 
 	var _react = __webpack_require__(155);
 
-	var _storeShape = __webpack_require__(288);
+	var _storeShape = __webpack_require__(289);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(289);
+	var _warning = __webpack_require__(290);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -32201,7 +32262,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32217,7 +32278,7 @@
 	});
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32246,7 +32307,7 @@
 	}
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -32258,19 +32319,19 @@
 
 	var _react = __webpack_require__(155);
 
-	var _storeShape = __webpack_require__(288);
+	var _storeShape = __webpack_require__(289);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(291);
+	var _shallowEqual = __webpack_require__(292);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(292);
+	var _wrapActionCreators = __webpack_require__(293);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(289);
+	var _warning = __webpack_require__(290);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -32278,11 +32339,11 @@
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(293);
+	var _hoistNonReactStatics = __webpack_require__(294);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(294);
+	var _invariant = __webpack_require__(295);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -32645,7 +32706,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32676,7 +32737,7 @@
 	}
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32693,7 +32754,7 @@
 	}
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports) {
 
 	/**
@@ -32749,7 +32810,7 @@
 
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -32807,7 +32868,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(155); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -32824,15 +32885,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(286);
+	var _reactRedux = __webpack_require__(287);
 
-	var _health = __webpack_require__(296);
+	var _bar = __webpack_require__(297);
 
-	var _health2 = _interopRequireDefault(_health);
-
-	var _experience = __webpack_require__(297);
-
-	var _experience2 = _interopRequireDefault(_experience);
+	var _bar2 = _interopRequireDefault(_bar);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32868,7 +32925,11 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'status-bar' },
-	          _react2.default.createElement(_health2.default, null),
+	          _react2.default.createElement(_bar2.default, { name: 'Health',
+	            value: this.props.player.health,
+	            percentage: this.props.player.health <= 100 ? this.props.player.health : 100,
+	            barClass: 'health'
+	          }),
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -32883,7 +32944,11 @@
 	              this.props.player.level
 	            )
 	          ),
-	          _react2.default.createElement(_experience2.default, null),
+	          _react2.default.createElement(_bar2.default, { name: 'Experience',
+	            value: this.props.player.experience + ' / ' + this.props.player.maxExp,
+	            percentage: this.props.player.experience * 100 / this.props.player.maxExp,
+	            barClass: 'experience'
+	          }),
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -32932,85 +32997,6 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(155); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(155);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(286);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by Vadym Yatsyuk on 29/08/16
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-	var HealthComponent = function (_React$Component) {
-	  _inherits(HealthComponent, _React$Component);
-
-	  function HealthComponent() {
-	    _classCallCheck(this, HealthComponent);
-
-	    return _possibleConstructorReturn(this, (HealthComponent.__proto__ || Object.getPrototypeOf(HealthComponent)).apply(this, arguments));
-	  }
-
-	  _createClass(HealthComponent, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'bar-container health' },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Health'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'bar-indicator-container' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'bar-indicator' },
-	            this.props.health
-	          ),
-	          _react2.default.createElement('div', { className: 'bar', style: { width: (this.props.health <= 100 ? this.props.health : 100) + '%' } })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return HealthComponent;
-	}(_react2.default.Component);
-
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    health: state.game.player.health
-	  };
-	};
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(HealthComponent);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "health.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
 /* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -33028,8 +33014,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(286);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33041,25 +33025,25 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var ExperienceComponent = function (_React$Component) {
-	  _inherits(ExperienceComponent, _React$Component);
+	var BarComponent = function (_React$Component) {
+	  _inherits(BarComponent, _React$Component);
 
-	  function ExperienceComponent() {
-	    _classCallCheck(this, ExperienceComponent);
+	  function BarComponent() {
+	    _classCallCheck(this, BarComponent);
 
-	    return _possibleConstructorReturn(this, (ExperienceComponent.__proto__ || Object.getPrototypeOf(ExperienceComponent)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (BarComponent.__proto__ || Object.getPrototypeOf(BarComponent)).apply(this, arguments));
 	  }
 
-	  _createClass(ExperienceComponent, [{
+	  _createClass(BarComponent, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'bar-container experience' },
+	        { className: 'bar-container ' + this.props.barClass },
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Experience'
+	          this.props.name
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -33067,29 +33051,20 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'bar-indicator' },
-	            this.props.experience,
-	            ' / ',
-	            this.props.maxExp
+	            this.props.value
 	          ),
-	          _react2.default.createElement('div', { className: 'bar', style: { width: this.props.experience * 100 / this.props.maxExp + '%' } })
+	          _react2.default.createElement('div', { className: 'bar', style: { width: this.props.percentage + '%' } })
 	        )
 	      );
 	    }
 	  }]);
 
-	  return ExperienceComponent;
+	  return BarComponent;
 	}(_react2.default.Component);
 
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    experience: state.game.player.experience,
-	    maxExp: state.game.player.maxExp
-	  };
-	};
+	exports.default = BarComponent;
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ExperienceComponent);
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "experience.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "bar.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
@@ -33110,7 +33085,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(286);
+	var _reactRedux = __webpack_require__(287);
 
 	var _Player = __webpack_require__(299);
 
@@ -33175,8 +33150,10 @@
 
 	      return row.map(function (block, x) {
 
+	        var xDiff = Math.abs(x - _this2.props.game.position.x);
+	        var yDiff = Math.abs(y - _this2.props.game.position.y);
 	        // hide
-	        if (_this2.props.game.darkness && (Math.abs(x - _this2.props.game.position.x) > 3 || Math.abs(y - _this2.props.game.position.y) > 3)) {
+	        if (_this2.props.game.darkness && (xDiff > 3 || yDiff > 3 || xDiff == 3 && yDiff === 2 || xDiff === 2 && yDiff === 3 || xDiff === 3 && yDiff === 3)) {
 	          return _react2.default.createElement('div', { key: x + '-' + y, className: 'darkness' });
 	        }
 
@@ -33236,7 +33213,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(155); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -33247,6 +33224,8 @@
 	var _react = __webpack_require__(155);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(287);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33269,21 +33248,27 @@
 	  }
 
 	  _createClass(Player, [{
-	    key: "shouldComponentUpdate",
+	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate() {
 	      return false;
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement("div", { className: "player" });
+	      return _react2.default.createElement('div', { className: 'player ' + this.props.direction });
 	    }
 	  }]);
 
 	  return Player;
 	}(_react2.default.Component);
 
-	exports.default = Player;
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    direction: state.game.player.direction
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Player);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(259); if (makeExportsHot(module, __webpack_require__(155))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Player.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
