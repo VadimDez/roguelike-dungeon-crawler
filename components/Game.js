@@ -54,20 +54,20 @@ class Game extends React.Component {
   }
 
   moveUp() {
-    this.move(this.props.game.position.x, this.props.game.position.y - 1);
     this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_UP);
+    this.move(this.props.game.position.x, this.props.game.position.y - 1);
   }
   moveDown() {
-    this.move(this.props.game.position.x, this.props.game.position.y + 1);
     this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_DOWN);
+    this.move(this.props.game.position.x, this.props.game.position.y + 1);
   }
   moveLeft() {
-    this.move(this.props.game.position.x - 1, this.props.game.position.y);
     this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_LEFT);
+    this.move(this.props.game.position.x - 1, this.props.game.position.y);
   }
   moveRight() {
-    this.move(this.props.game.position.x + 1, this.props.game.position.y);
     this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_RIGHT);
+    this.move(this.props.game.position.x + 1, this.props.game.position.y);
   }
 
   move(x, y) {
