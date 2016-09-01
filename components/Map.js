@@ -29,11 +29,18 @@ class Map extends React.Component {
   renderColumn(row, y) {
     return row.map((block, x) => {
 
+      const xDiff = Math.abs(x - this.props.game.position.x);
+      const yDiff = Math.abs(y - this.props.game.position.y);
       // hide
       if (
         this.props.game.darkness
-        && (Math.abs(x - this.props.game.position.x) > 3
-        || Math.abs(y - this.props.game.position.y) > 3)
+        && (
+          xDiff > 3
+          || yDiff > 3
+          || (xDiff == 3 && yDiff === 2)
+          || (xDiff === 2 && yDiff === 3)
+          || (xDiff === 3 && yDiff === 3)
+        )
       ) {
         return <div key={`${x}-${y}`} className="darkness"></div>
       }

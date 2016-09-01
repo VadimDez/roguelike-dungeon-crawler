@@ -13,6 +13,7 @@ import Enemy from './../Entities/Enemy'
 import Teleport from './../Entities/Teleport'
 import Modal from './Modal'
 import * as actionTypes from './../ActionTypes';
+import * as playerDirections from './../PlayerDirections';
 
 class Game extends React.Component {
   constructor() {
@@ -27,13 +28,25 @@ class Game extends React.Component {
         case 37:
           this.moveLeft();
           break;
+        case 65:
+          this.moveLeft();
+          break;
         case 38:
+          this.moveUp();
+          break;
+        case 87:
           this.moveUp();
           break;
         case 39:
           this.moveRight();
           break;
+        case 68:
+          this.moveRight();
+          break;
         case 40:
+          this.moveDown();
+          break;
+        case 83:
           this.moveDown();
           break;
       }
@@ -41,15 +54,19 @@ class Game extends React.Component {
   }
 
   moveUp() {
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_UP);
     this.move(this.props.game.position.x, this.props.game.position.y - 1);
   }
   moveDown() {
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_DOWN);
     this.move(this.props.game.position.x, this.props.game.position.y + 1);
   }
   moveLeft() {
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_LEFT);
     this.move(this.props.game.position.x - 1, this.props.game.position.y);
   }
   moveRight() {
+    this.props.updatePlayerDirection(playerDirections.PLAYER_DIRECTION_RIGHT);
     this.move(this.props.game.position.x + 1, this.props.game.position.y);
   }
 
@@ -142,6 +159,11 @@ class Game extends React.Component {
     this.props.toggleDarkness(!this.props.game.darkness);
   }
 
+  modalRestartAction() {
+    this.closeModal('winModal')();
+    this.restart();
+  }
+
   render() {
     let modal;
 
@@ -149,19 +171,13 @@ class Game extends React.Component {
       modal = <Modal
         text="You lose. Try again."
         onClick={this.closeModal('loseModal').bind(this)}
-        restart={() => {
-          this.closeModal('loseModal')();
-          this.restart();
-        }}
+        restart={ this.modalRestartAction.bind(this) }
       />;
     } else if (this.props.modals.winModal) {
       modal = <Modal
         text="You won!"
-        onClick={this.closeModal('winModal').bind(this)}
-        restart={() => {
-          this.closeModal('winModal')();
-          this.restart();
-        }}
+        onClick={ this.closeModal('winModal').bind(this) }
+        restart={ this.modalRestartAction.bind(this) }
       />;
     }
 
@@ -301,6 +317,12 @@ const mapDispatchToProps = (dispatch) => {
     restart: () => {
       dispatch({
         type: actionTypes.UPDATE_MAP_RESET
+      });
+    },
+    updatePlayerDirection: (direction) => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_DIRECTION,
+        direction
       });
     }
   }

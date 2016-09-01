@@ -22,8 +22,17 @@ body {
       background-image: url($image-uri + '/images/ground.png');
     }
 
-    &.player {
-      background-image: url($image-uri + '/images/player.png');
+    &.player.up {
+      background: url($image-uri + '/images/player-up.png') 0 0 / 100% 83% no-repeat, url($image-uri + '/images/grass.png');
+    }
+    &.player.down {
+      background: url($image-uri + '/images/player-down.png') 0 0 / 100% 83% no-repeat, url($image-uri + '/images/grass.png');
+    }
+    &.player.left {
+      background: url($image-uri + '/images/player-left.png') 0 0 / 100% 83% no-repeat, url($image-uri + '/images/grass.png');
+    }
+    &.player.right {
+      background: url($image-uri + '/images/player-right.png') 0 0 / 100% 83% no-repeat, url($image-uri + '/images/grass.png');
     }
 
     &.enemy {

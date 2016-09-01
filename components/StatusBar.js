@@ -5,8 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Health from './health';
-import Experience from './experience';
+import HUDBar from './hud/bar';
 
 class StatusBar extends React.Component {
   componentDidMount() {
@@ -19,12 +18,20 @@ class StatusBar extends React.Component {
     return (
       <div>
         <div className="status-bar">
-          <Health/>
+          <HUDBar name={ 'Health' }
+                  value={ this.props.player.health }
+                  percentage={ this.props.player.health <= 100 ? this.props.player.health : 100 }
+                  barClass={ 'health' }
+          />
           <div>
             <div>LVL</div>
             <div className="indicator">{ this.props.player.level }</div>
           </div>
-          <Experience/>
+          <HUDBar name={ 'Experience' }
+                  value={ `${ this.props.player.experience } / ${ this.props.player.maxExp }`}
+                  percentage={ this.props.player.experience * 100 / this.props.player.maxExp }
+                  barClass={ 'experience' }
+          />
           <div>
             <div>Weapon</div>
             <div>{ this.props.player.weapon.name }</div>
