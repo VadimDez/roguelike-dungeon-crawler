@@ -5,10 +5,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Player extends React.Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-
   render() {
     return (
       <div className={ `player ${ this.props.direction }`}></div>
