@@ -10,7 +10,7 @@ class BarComponent extends React.Component {
         <div>{ this.props.name }</div>
         <div className="bar-indicator-container">
           <div className="bar-indicator">{ this.props.value }</div>
-          <div className="bar" style={{width: `${ this.props.percentage }%`}}></div>
+          <div className="bar" style={{ transition: '0.5s width easi-in', width: `${ this.props.percentage }%`}}></div>
         </div>
       </div>
     )
