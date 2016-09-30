@@ -15,11 +15,9 @@ import {getRandomEmptyPointOnMap} from './utils';
 import * as PlayerDirections from './PlayerDirections';
 
 let dataMap = reset();
-const DEFAULT_HEALTH = 100;
-const DEFAULT_WEAPON = new Weapon('Hands', 5);
 const player = {
-  health: DEFAULT_HEALTH,
-  weapon: DEFAULT_WEAPON,
+  health: 100,
+  weapon: new Weapon('Hands', 5),
   experience: 0,
   maxExp: 10,
   level: 0,
@@ -126,10 +124,7 @@ const game = (state = initialState, action) => {
 
   if (action.type === actionTypes.UPDATE_PLAYER_SET_DEFAUL) {
     return Object.assign({}, state, {
-      player: Object.assign({}, state.player, {
-        health: DEFAULT_HEALTH,
-        weapon: DEFAULT_WEAPON
-      })
+      player: Object.assign({}, state.player, player)
     })
   }
 
