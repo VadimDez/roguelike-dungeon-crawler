@@ -318,6 +318,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: actionTypes.UPDATE_MAP_RESET
       });
+      dispatch({
+        type: actionTypes.UPDATE_MODAL,
+        modal: 'loseModal',
+        value: false
+      });
     },
     updatePlayerDirection: (direction) => {
       dispatch({
