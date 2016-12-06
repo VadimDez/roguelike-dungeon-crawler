@@ -141,7 +141,7 @@ class Game extends React.Component {
   }
 
   restart() {
-    this.props.updateHealth(100);
+    this.props.updatePlayerSetDefault();
     this.props.restart();
   }
 
@@ -318,11 +318,21 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: actionTypes.UPDATE_MAP_RESET
       });
+      dispatch({
+        type: actionTypes.UPDATE_MODAL,
+        modal: 'loseModal',
+        value: false
+      });
     },
     updatePlayerDirection: (direction) => {
       dispatch({
         type: actionTypes.UPDATE_PLAYER_DIRECTION,
         direction
+      });
+    },
+    updatePlayerSetDefault: () => {
+      dispatch({
+        type: actionTypes.UPDATE_PLAYER_SET_DEFAUL
       });
     }
   }

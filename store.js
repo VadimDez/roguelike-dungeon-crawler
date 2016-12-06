@@ -122,6 +122,12 @@ const game = (state = initialState, action) => {
     });
   }
 
+  if (action.type === actionTypes.UPDATE_PLAYER_SET_DEFAUL) {
+    return Object.assign({}, state, {
+      player: Object.assign({}, state.player, player)
+    })
+  }
+
   return state
 };
 

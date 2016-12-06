@@ -1,9 +1,13 @@
 .modal-container {
   position: absolute;
-  top: 30px;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.64);
+
   .modal {
+    margin-top: 30px;
     margin-right: auto;
     margin-left: auto;
     background-color: #fff;
