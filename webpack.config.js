@@ -1,8 +1,7 @@
 /**
  * Created by Vadym Yatsyuk on 18/02/16
  */
-var path = require('path');
-var webpack = require('webpack');
+let webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -14,29 +13,35 @@ module.exports = {
     path: __dirname,
     filename: 'bundle.js'
   },
-  resolveUrlLoader: {
-    root: __dirname,
-    sourceMap: true
-  },
+  context: __dirname,
+  devtool: 'source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /.js$/,
-        loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react'],
+        use: ['react-hot-loader', 'babel-loader?presets[]=es2015&presets[]=react'],
         exclude: /node_modules/,
-        // query: {
+        // options: {
         //   presets: ['es2015', 'react']
         // }
       },
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ['style', 'css']
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', "style", "css", 'sass?sourceMap']
+        use: [
+          'react-hot-loader',
+          'style-loader',
+          'css-loader',
+          'sass-loader?sourceMap'
+        ]
       }
     ]
   },
