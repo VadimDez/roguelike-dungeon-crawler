@@ -5,8 +5,8 @@ let webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:9000',
-    'webpack/hot/only-dev-server',
+    // 'webpack-dev-server/client?http://0.0.0.0:9000',
+    // 'webpack/hot/only-dev-server',
     './index.js'
   ],
   output: {
@@ -19,7 +19,10 @@ module.exports = {
     rules: [
       {
         test: /.js$/,
-        use: ['react-hot-loader', 'babel-loader?presets[]=es2015&presets[]=react'],
+        use: [
+          // 'react-hot-loader',
+          'babel-loader?presets[]=es2015&presets[]=react'
+        ],
         exclude: /node_modules/,
         // options: {
         //   presets: ['es2015', 'react']
