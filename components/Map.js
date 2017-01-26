@@ -14,9 +14,9 @@ import Teleport from './../Entities/Teleport';
 class Map extends React.Component {
   render() {
     return (
-      <div>
+      <section>
         { this.renderMap() }
-      </div>
+      </section>
     )
   }
 
