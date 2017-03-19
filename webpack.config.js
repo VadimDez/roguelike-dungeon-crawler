@@ -2,6 +2,7 @@
  * Created by Vadym Yatsyuk on 18/02/16
  */
 let webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: [
@@ -14,7 +15,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   context: __dirname,
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
+  devServer: {
+    hot: true
+  },
   module: {
     rules: [
       {
@@ -37,7 +41,6 @@ module.exports = {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
-          'react-hot-loader',
           'style-loader',
           'css-loader',
           'sass-loader?sourceMap'
@@ -46,6 +49,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin([
+      path.join(__dirname, 'node_modules')
+    ])
   ]
 };
